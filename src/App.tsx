@@ -5,17 +5,24 @@ import {
 } from "react-router-dom";
 import Login from "./screens/Login.screen";
 import Home from "./screens/Home.screen";
-import Doctor from "./screens/Doctor.screen";
+import Doctor from "./screens/doctor-screen/Doctor.screen";
 import Patient from "./screens/Patient.screen";
-import Admin from "./screens/Admin.screen";
+import Appointments from "./components/appointments/Appointments";
+import DoctorDashboard from "./components/doctor-dashboard/DoctorDashboard";
 
 const App = () => {
   const routes: RouteObject[] = [
     { path: "/", element: <Home /> },
     { path: "/login", element: <Login /> },
-    { path: "/doctor", element: <Doctor /> },
+    {
+      path: "/doctor",
+      element: <Doctor />,
+      children: [
+        { path: "dashboard", index: true, element: <DoctorDashboard /> },
+        { path: "appointments", element: <Appointments /> },
+      ],
+    },
     { path: "/patient", element: <Patient /> },
-    { path: "/admin", element: <Admin /> },
   ];
   const browserRouter = createBrowserRouter(routes);
   return <RouterProvider router={browserRouter} />;
