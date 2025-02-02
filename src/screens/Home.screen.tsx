@@ -1,8 +1,11 @@
-
-const Home = () => {
+import Navbar from "../Components/HomeComponents/Nav/Navbar";
+import Slider from "../Components/HomeComponents/Slider/Slider";
+ const Home = () => {
   return (
-    <div>Home.screen</div>
+    <>
+    <Navbar/>
+    <Slider/>
+    </>
   )
 }
-
 export default Home;
