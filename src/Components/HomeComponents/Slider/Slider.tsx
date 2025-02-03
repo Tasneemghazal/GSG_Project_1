@@ -1,29 +1,55 @@
-import { Swiper , SwiperSlide } from "swiper/react"
+import { Swiper, SwiperSlide } from "swiper/react";
+import "./slider.css";
 import backgroundimg from "../../../assets/Home_imgs/slider/doc.png";
-import { Pagination } from 'swiper/modules';
-import "./slider.css"
+import slider2 from "../../../assets/Home_imgs/slider/slider2.jpg";
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 const Slider = () => {
   return (
-    <div >
-    <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
-    <SwiperSlide>
-        <div className="slider" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)) ,url(${backgroundimg})` }}>
+    <div>
+      <Swiper 
+       modules={[Navigation, Pagination, Scrollbar, A11y]}
+       spaceBetween={50}
+       slidesPerView={1}
+       navigation
+       pagination={{ clickable: true }}
+       scrollbar={{ draggable: true }}
+       onSwiper={(swiper) => console.log(swiper)}
+       onSlideChange={() => console.log('slide change')}
+      className="mySwiper">
+        <SwiperSlide>
+          <div className="slider" style={{ backgroundImage: `url(${backgroundimg})` }}>
+            <div className="text">
               <h1>Welcome to Our Healthcare System</h1>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
               <button>Learn More</button>
-        </div>
-    </SwiperSlide>
-    <SwiperSlide>Slide 2</SwiperSlide>
-    <SwiperSlide>Slide 3</SwiperSlide>
-    <SwiperSlide>Slide 4</SwiperSlide>
-    <SwiperSlide>Slide 5</SwiperSlide>
-    <SwiperSlide>Slide 6</SwiperSlide>
-    <SwiperSlide>Slide 7</SwiperSlide>
-    <SwiperSlide>Slide 8</SwiperSlide>
-    <SwiperSlide>Slide 9</SwiperSlide>
-  </Swiper>
-  </div>
-  )
-}
+            </div>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="slider" style={{ backgroundImage: `url(${slider2})` }}>
+            <div className="text">
+              <h1>Welcome to Our Healthcare System</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <button>Learn More</button>
+            </div>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="slider" style={{ backgroundImage: `url(${backgroundimg})` }}>
+            <div className="text">
+              <h1>Welcome to Our Healthcare System</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <button>Learn More</button>
+            </div>
+          </div>
+        </SwiperSlide>
+      </Swiper>
+    </div>
+  );
+};
 
-export default Slider
+export default Slider;

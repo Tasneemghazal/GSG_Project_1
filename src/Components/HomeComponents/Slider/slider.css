@@ -1,13 +1,68 @@
-.slider{
+
+.swiper-container {
+     width: 100%;
+     height: 100%;
+ }
+ .swiper-slide {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+ .slider {
      background-size: cover;
      background-position: center;
-     height: 100vh;
-     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+     width: 100%;
+     height: 100vh; /* Ensure this height fits your needs */
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     color: white;
+     text-align: center;
+     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+ }
+ 
+ .slider:hover {
+     transform: scale(1.05);
+     opacity: 0.9;
+ }
+ .slider .text {
+     padding: 20px;
+     background: rgba(0, 0, 0, 0.5); /* Add background for better text visibility */
+     color: white;
+     border-radius: 10px;
      transition: all 0.3s ease-in-out;
      transform: scale(1);
      opacity: 1;
-}
-.slider:hover{
-     transform: scale(1.1);
-     opacity: 0.8;
-}
+     width: 80%; /* Adjust width as needed */
+     max-width: 600px;
+ }
+ 
+ .slider .text h1 {
+     color: #fff; /* Change header color to white for better contrast */
+     font-size: 50px; /* Adjust font size as needed */
+     font-weight: 700;
+     margin-bottom: 20px;
+ }
+ 
+ .slider .text p {
+     font-size: 18px; /* Adjust font size as needed */
+     margin-bottom: 20px;
+     line-height: 1.5;
+ }
+ 
+ .slider .text button {
+     background-color: #002570;
+     color: white;
+     padding: 10px 20px;
+     border: none;
+     border-radius: 20px;
+     transition: background-color 0.3s ease-in-out;
+ }
+ 
+ .slider .text button:hover {
+     background-color: white;
+     color: #002570;
+     cursor: pointer;
+ }
+ 
