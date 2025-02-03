@@ -6,7 +6,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 const DoctorSidebar: React.FC = () => {
-  const [active, setActive] = useState("Appointments")
+  const [active, setActive] = useState("Dashboard")
 
   const menuItems = [
     { text: "Dashboard", link: "dashboard", icon: <DashboardIcon/> },

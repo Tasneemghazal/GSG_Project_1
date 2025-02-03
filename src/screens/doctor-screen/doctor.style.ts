@@ -4,4 +4,4 @@ export const container = () => ({
   height: "100vh",
 });
 
-export const content = () => ({ flexGrow: 1, p: 3, m: 4 });
+export const content = () => ({ flexGrow: 1, p: 3, mt:4, ml:2  });

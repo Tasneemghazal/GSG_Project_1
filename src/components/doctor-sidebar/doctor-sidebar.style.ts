@@ -5,7 +5,6 @@ export const drawerStyle = ()=>( {
     boxSizing: "border-box",
     borderRadius: "20px",
     padding: "20px",
-    margin: "25px",
     border: "none",
     boxShadow: "rgba(0, 0, 0, 0.1) 0px 1px 2px 0px"
   },
