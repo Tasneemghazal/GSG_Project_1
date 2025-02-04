@@ -18,8 +18,8 @@ const App = () => {
       path: "/doctor",
       element: <Doctor />,
       children: [
-        { index: true, element: <DoctorDashboard /> },
-        { path: "dashboard", index: true, element: <DoctorDashboard /> },
+        {index: true, element: <DoctorDashboard /> },
+        { path: "dashboard", element: <DoctorDashboard /> },
         { path: "appointments", element: <Appointments /> },
       ],
     },

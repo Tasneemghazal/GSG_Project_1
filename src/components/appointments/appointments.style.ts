@@ -1,10 +1,19 @@
-
-export const table = ()=>({
-    minWidth: 650 
+export const tableContainer = () => ({ borderRadius: "10px" });
+export const table = () => ({
+  minWidth: 650,
 });
 
-export const button = ()=>({
-    padding:"5px",
-    fontSize:"10px",
-    borderRadius:"10px",
+export const button = () => ({
+  padding: "5px",
+  fontSize: "10px",
+  borderRadius: "10px",
+});
+
+export const inputSearch = () => ({
+  mb: 2,
+  mt: 2,
+  width: "30%",
+  display: "flex",
+  justifyContent: "space-around",
+  borderRadius: "10px",
 });

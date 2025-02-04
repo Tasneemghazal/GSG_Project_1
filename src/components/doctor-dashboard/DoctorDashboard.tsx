@@ -11,33 +11,35 @@ const DoctorDashboard = () => {
   return (
     <Grid container spacing={2}>
       <Grid size={4}>
-        <Grid container direction="column" spacing={2}>
-          <StatisticCard
-            icon={<FaUserInjured size={"48px"} color="grey" />}
-            text="Total Patient"
-            total={40}
-          />
-          <StatisticCard
-            icon={<FaUserClock size={"48px"} color="grey" />}
-            text="Patients Today"
-            total={40}
-          />
-          <StatisticCard
-            icon={<FaCalendarDays size={"48px"} color="grey" />}
-            text="Appointments Today"
-            total={40}
-          />
-        </Grid>
+        <StatisticCard
+          icon={<FaUserInjured size={"48px"} color="grey" />}
+          text="Total Patients"
+          total={40}
+        />
       </Grid>
-      <Grid size={8}>
-        <Grid container direction="column" spacing={2}>
-          <Paper sx={chartCard}>
-            <CustomPieChart />
-          </Paper>
-          <Paper sx={chartCard}>
-            <CustomBarChart />
-          </Paper>
-        </Grid>
+      <Grid size={4}>
+        <StatisticCard
+          icon={<FaUserClock size={"48px"} color="grey" />}
+          text="Patients Today"
+          total={40}
+        />
+      </Grid>
+      <Grid size={4}>
+        <StatisticCard
+          icon={<FaCalendarDays size={"48px"} color="grey" />}
+          text="Appointments Today"
+          total={40}
+        />
+      </Grid>
+      <Grid size={6}>
+        <Paper sx={chartCard}>
+          <CustomPieChart />
+        </Paper>
+      </Grid>
+      <Grid size={6}>
+        <Paper sx={chartCard}>
+          <CustomBarChart />
+        </Paper>
       </Grid>
     </Grid>
   );

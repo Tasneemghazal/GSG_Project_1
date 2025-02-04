@@ -4,4 +4,11 @@ export const container = () => ({
   height: "100vh",
 });
 
-export const content = () => ({ flexGrow: 1, p: 3, mt:4, ml:2  });
+export const content = () => ({
+  flexGrow: 1,
+  p: 3,
+  ml: 2,
+  "& .title": {
+    color: "grey",
+  },
+});

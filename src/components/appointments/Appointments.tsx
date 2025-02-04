@@ -9,12 +9,14 @@ import {
   Paper,
   Box,
   Button,
-  Typography,
   Stack,
+  IconButton,
+  InputBase,
 } from "@mui/material";
 import { Appointment, Status } from "../../types/@types";
-import { button, table } from "./appointments.style";
+import { button, inputSearch, table, tableContainer } from "./appointments.style";
 import CustomModal from "../custom-modal/CustomModal";
+import { SearchOutlined } from "@mui/icons-material";
 
 const initialAppointments: Appointment[] = [
   { id: 1, name: "John Doe", age: 29, gender: "Male", contact: "123-456-7890", symptoms: "Fever, Cough", status: Status.Pending },
@@ -47,10 +49,15 @@ export default function Appointments() {
 
   return (
     <Box>
-      <Typography variant="h5" mb={2}>
-        Patients Appointments
-      </Typography>
-      <TableContainer component={Paper}>
+      <Paper sx={inputSearch}>
+        <InputBase
+          placeholder="Search by Patient Name"
+        />
+        <IconButton>
+          <SearchOutlined/>
+        </IconButton>
+      </Paper>
+      <TableContainer component={Paper} sx={tableContainer}>
         <Table sx={table}>
           <TableHead>
             <TableRow>
