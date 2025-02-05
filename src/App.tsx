@@ -8,6 +8,7 @@ import Home from "./screens/Home.screen";
 import Doctor from "./screens/Doctor.screen";
 import Patient from "./screens/Patient.screen";
 import Admin from "./screens/Admin.screen";
+import Appointments from "./components/appointments/appointments.components";
 
 const App = () => {
   const routes: RouteObject[] = [
@@ -16,6 +17,8 @@ const App = () => {
     { path: "/doctor", element: <Doctor /> },
     { path: "/patient", element: <Patient /> },
     { path: "/admin", element: <Admin /> },
+    { path: "/appointments", element: <Appointments /> },
+
   ];
   const browserRouter = createBrowserRouter(routes);
   return <RouterProvider router={browserRouter} />;

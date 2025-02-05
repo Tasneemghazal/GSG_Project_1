@@ -1,0 +1,30 @@
+html,
+body {
+  font-family: sans-serif;
+  font-weight: 600;
+  align-items: center;
+  background-color: #f7f3f2;
+}
+.root {
+  padding: 34px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 950px;
+  margin: auto;
+}
+h3 {
+  margin: 0;
+}
+.MuiTable-root {
+  font-family: "Poppins", sans-serif;
+}
+.MuiTableCell-root {
+  font-size: 14px;
+}
+.MuiTableHead-root .MuiTableCell-root {
+  font-weight: bold;
+}
+.title{
+  background-color: red;
+}
