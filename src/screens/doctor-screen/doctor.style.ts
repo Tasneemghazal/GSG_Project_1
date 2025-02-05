@@ -12,3 +12,12 @@ export const content = () => ({
     color: "grey",
   },
 });
+
+export const inputSearch = () => ({
+  mb: 2,
+  mt: 2,
+  width: "30%",
+  display: "flex",
+  justifyContent: "space-around",
+  borderRadius: "10px",
+});
