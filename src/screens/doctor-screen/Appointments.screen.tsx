@@ -1,21 +1,15 @@
-// src/components/appointments/Appointments.tsx
-import { useReducer, useState } from "react";
+import {useState } from "react";
 import { Paper, Box, InputBase, IconButton } from "@mui/material";
 import { SearchOutlined } from "@mui/icons-material";
 import { Appointment, initialAppointments, Status } from "../../types/@types";
 import CustomModal from "../../components/custom-modal/CustomModal"
-import reducer from "../../state/modalReducer";
 import AppointmentsTable from "../../components/appointments/AppointmentsTable";
 import { inputSearch } from "./doctor.style";
+import useModal from "../../hooks/useModal";
 
 const Appointments=()=> {
   const [appointments, setAppointments] = useState<Appointment[]>(initialAppointments);
-  const [state, dispatch] = useReducer(reducer, {
-    open: false,
-    symptom: "",
-    note: "",
-    mode: "SYMPTOM",
-  });
+  const{state, dispatch}=useModal();
 
   const handleStatusChange = (id: number, newStatus: Status) => {
     setAppointments((prevAppointments) =>

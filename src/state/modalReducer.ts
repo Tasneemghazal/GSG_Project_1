@@ -1,11 +1,11 @@
-interface IState {
+export interface IState {
   open: boolean;
   mode: "SYMPTOM" | "NOTE";
   symptom: string;
   note: string;
 }
 
-type Action =
+export type Action =
   | { type: "OPEN_MODAL"; payload: string }
   | { type: "CLOSE_MODAL" }
   | { type: "OPEN_NOTE_MODAL" }

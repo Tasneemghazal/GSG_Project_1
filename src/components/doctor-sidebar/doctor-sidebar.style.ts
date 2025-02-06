@@ -25,7 +25,7 @@ export const menuItemStyle = (active: boolean) => ({
 
 export const sidebarHead = () => ({
   backgroundImage:
-    "url('https://img.freepik.com/free-photo/close-up-stethoscope-blank-blue-background_23-2147874869.jpg?t=st=1738671401~exp=1738675001~hmac=b7942acd742725094388f8100183108dc96cefdcd8d8d8360792ab36d2903323&w=996')",
+    "url('https://img.freepik.com/free-photo/medicine-blue-background-flat-lay_23-2149341573.jpg?t=st=1738765160~exp=1738768760~hmac=201278053b32c41b194c8108c858b085593caeea9eecfebc44dc1b08d8970506&w=996')",
   padding: "20px",
   height: "25%",
   position: "relative",
