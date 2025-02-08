@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './appointments.css'
 import Button from '@mui/material/Button'
 import {
+  Alert,
   Box,
   createTheme,
   FormControl,
@@ -9,9 +10,11 @@ import {
   MenuItem,
   Modal,
   Select,
+  Snackbar,
   TextField,
   ThemeProvider
 } from '@mui/material'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import doctor1 from '../../images/Doctors/01.jpg'
 import doctor2 from '../../images/Doctors/02.jpg'
 import doctor3 from '../../images/Doctors/03.jpg'
@@ -55,7 +58,7 @@ const doctors = [
 
 const Appointments = () => {
   const [open, setOpen] = useState(true)
-  const [appointments, setAppointments] = useState<Appointment[]>([])
+  const [isBooked, setIsBooked] = useState(false)
   const [addAppointments, setAddAppointments] = useState<Appointment>({
     patientName: '',
     patientImg: '',
@@ -87,7 +90,7 @@ const Appointments = () => {
     })
   }
 
-  const handleSubmit = () => {
+  const handleBooking = () => {
     if (
       !addAppointments.patientName.trim() ||
       !addAppointments.age ||
@@ -99,20 +102,9 @@ const Appointments = () => {
       alert('Please fill all required data')
       return
     }
-    setAppointments([...appointments, addAppointments])
-    setAddAppointments({
-      patientName: '',
-      patientImg: '',
-      age: 0,
-      doctor: '',
-      doctorImg: '',
-      email: '',
-      gender: '',
-      date: '',
-      time: '',
-      fees: ''
-    })
     setOpen(false)
+    setIsBooked(true)
+    // setTimeout(() => setIsBooked(false), 3000)
   }
 
   return (
@@ -212,7 +204,7 @@ const Appointments = () => {
               <Button
                 variant='contained'
                 sx={{ marginTop: 5 }}
-                onClick={handleSubmit}
+                onClick={handleBooking}
               >
                 Book an Appointment
               </Button>
@@ -227,6 +219,23 @@ const Appointments = () => {
             </Box>
           </Box>
         </Modal>
+        {isBooked && (
+          <Snackbar
+            open={isBooked}
+            autoHideDuration={3000}
+            onClose={() => setIsBooked(false)}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          >
+            <Alert
+              onClose={() => setIsBooked(false)}
+              severity='success'
+              variant='filled'
+              icon={<CheckCircleIcon fontSize='inherit' />}
+            >
+              Booking Successfully!
+            </Alert>
+          </Snackbar>
+        )}
       </div>
     </ThemeProvider>
   )
