@@ -6,18 +6,26 @@ import {
 import Login from "./screens/LoginScreen/Login.screen";
 import Register from "./screens/RegisterScreen/index";
 import Home from "./screens/Home.screen";
-import Doctor from "./screens/Doctor.screen";
+import Doctor from "./screens/doctor-screen/Doctor.screen";
 import Patient from "./screens/Patient.screen";
-import Admin from "./screens/Admin.screen";
+import DoctorDashboard from "./components/doctor-dashboard/DoctorDashboard";
+import Appointments from "./screens/doctor-screen/Appointments.screen";
 
 const App = () => {
   const routes: RouteObject[] = [
     { path: "/", element: <Home /> },
     { path: "/login", element: <Login /> },
     { path: "/Register", element: <Register /> },
-    { path: "/doctor", element: <Doctor /> },
+    {
+      path: "/doctor",
+      element: <Doctor />,
+      children: [
+        {index: true, element: <DoctorDashboard /> },
+        { path: "dashboard", element: <DoctorDashboard /> },
+        { path: "appointments", element: <Appointments /> },
+      ],
+    },
     { path: "/patient", element: <Patient /> },
-    { path: "/admin", element: <Admin /> },
   ];
   const browserRouter = createBrowserRouter(routes);
   return <RouterProvider router={browserRouter} />;
