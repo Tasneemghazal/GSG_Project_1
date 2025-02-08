@@ -5,7 +5,7 @@ const Home = () => {
     <div>
       <h1>Welcome to Home</h1>
       <Link to="/appointments">
-        <button>Go to Appointments</button>
+        <button>Go to Appointment Book Page</button>
       </Link>
     </div>
   );

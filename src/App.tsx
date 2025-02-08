@@ -8,7 +8,7 @@ import Home from "./screens/Home.screen";
 import Doctor from "./screens/Doctor.screen";
 import Patient from "./screens/Patient.screen";
 import Admin from "./screens/Admin.screen";
-import Appointments from "./components/appointments/appointments.components";
+import Appointments from "./components/appointments/appointments.component";
 
 const App = () => {
   const routes: RouteObject[] = [
