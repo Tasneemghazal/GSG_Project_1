@@ -1,28 +1,8 @@
-import { FormControl, TextField, InputAdornment, Container } from "@mui/material";
-import { styled } from '@mui/system'; // Import styled from @mui/system
-import { Clear as ClearIcon } from "@mui/icons-material"; // Use the correct icon import
+import { InputAdornment, Container } from "@mui/material";
+import { Clear as ClearIcon } from "@mui/icons-material"; 
 import React, { FunctionComponent, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-
-// Styled component
-const StyledFormControl = styled(FormControl)({
-  width: '100%', // Make the FormControl take full width
-  margin: "0",
-});
-
-const StyledTextField = styled(TextField)({
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: 'grey', 
-    },
-    '&:hover fieldset': {
-      borderColor: '#3572EF', 
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: '#3572EF',
-    },
-  },
-});
+import { StyledFormControl, StyledTextField } from "./Search.style";
 
 const Search: FunctionComponent = () => {
   const [showClearIcon, setShowClearIcon] = useState<"none" | "flex">("none");
@@ -32,7 +12,6 @@ const Search: FunctionComponent = () => {
   };
 
   const handleClick = (): void => {
-    // TODO: Clear the search input
     console.log("clicked the clear icon...");
   };
 

@@ -4,6 +4,7 @@ import { MdDashboard } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
 import { SlCalender } from "react-icons/sl";
 import { BsBookmarkPlus } from "react-icons/bs";
+import { box, drawer, list, listItemText } from './PatiantSidbar.style';
 
 const menuItems = [
   { text: "Dashboard", link: "dashboard", icon: <MdDashboard /> },
@@ -12,21 +13,11 @@ const menuItems = [
   { text: "Booking", link: "booking", icon: <BsBookmarkPlus /> },
 ];
 
-const drawerWidth = 210;
 
 export function PatientSidebar() {
   return (
-    <Box sx={{ display: 'flex' }}>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            bgcolor: 'white', 
-            borderRight: '1px solid shadow',
-          },
-        }}
+    <Box sx={ box() }>
+      <Drawer sx={drawer()}
         variant="permanent"
         anchor="left"
       >
@@ -37,30 +28,12 @@ export function PatientSidebar() {
               <ListItemButton 
                 component={Link} 
                 to={`./${item.link}`} 
-                sx={{
-                  bgcolor: 'transparent',
-                  '&:hover': {
-                    borderRadius:'10px',
-                    bgcolor: '#3572EF', 
-                    
-                  },
-                  '&.active': {
-                    borderRadius:'10px',
-                    border: '10px solid #050C9C',
-                    bgcolor: '#3572EF', 
-                    color: 'white', 
-                  },
-                }}
+                sx={list()}
               >
                 <ListItemIcon sx={{ color: '#050C9C' }}>{item.icon}</ListItemIcon>
                 <ListItemText 
                   primary={item.text} 
-                  sx={{ 
-                    color: '#050C9C', // Text color
-                    '&.active': {
-                      color: 'white', // Change text color on active
-                    },
-                  }} 
+                  sx={listItemText()} 
                 />
               </ListItemButton>
             </ListItem>

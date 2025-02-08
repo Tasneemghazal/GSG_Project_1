@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Box } from '@mui/material';
-import { PatientSidebar } from '../components/PaitientSidebar/SidebarPaitiant';
+import { PatientSidebar } from '../components/PatiantComponent/PaitientSidebar/SidebarPaitiant';
 
 const Patient = () => {
   return (
