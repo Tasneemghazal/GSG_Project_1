@@ -1,6 +1,6 @@
 // src/components/appointments/AppointmentsTable.tsx
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Stack } from "@mui/material";
-import { Appointment, Status } from "../../types/@types";
+import { Appointment, Status } from "../../../types/@types";
 import { button, table, tableContainer } from "./appointmentsTable.style";
 
 interface IProps {

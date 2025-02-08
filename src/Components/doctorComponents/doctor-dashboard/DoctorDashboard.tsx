@@ -1,10 +1,10 @@
 import Grid from "@mui/material/Grid2";
-import StatisticCard from "../statistic-card/StatisticCard";
+import StatisticCard from "../../statistic-card/StatisticCard";
 import { FaUserClock, FaUserInjured } from "react-icons/fa";
 import { FaCalendarDays } from "react-icons/fa6";
-import CustomPieChart from "../charts/CustomPieChart";
+import CustomPieChart from "../../charts/CustomPieChart";
 import { Paper } from "@mui/material";
-import CustomBarChart from "../charts/CustomBarChart";
+import CustomBarChart from "../../charts/CustomBarChart";
 import { chartCard } from "./doctor-dashboard.style";
 
 const DoctorDashboard = () => {
