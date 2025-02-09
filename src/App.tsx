@@ -10,6 +10,7 @@ import Doctor from "./screens/doctor-screen/Doctor.screen";
 import Patient from "./screens/Patient.screen";
 
 import Admin from "./screens/Admin.screen";
+import Appointments from "./components/appointments/appointments.component";
 import PatientDashboard from "./components/PatiantComponent/Dashboard/Dashboard";
 import Booking from "./components/PatiantComponent/Booking/BookingAppointment";
 import DoctorDashboard from "./Components/doctorComponents/doctor-dashboard/DoctorDashboard";
@@ -28,6 +29,12 @@ const App = () => {
   const routes: RouteObject[] = [
     { path: "/", element: <Home /> },
     { path: "/login", element: <Login /> },
+    { path: "/doctor", element: <Doctor /> },
+    { path: "/patient", element: <Patient /> },
+    { path: "/admin", element: <Admin /> },
+    { path: "/appointments", element: <Appointments /> },
+
+  ];
     { path: "/Register", element: <Register /> },
     {
       path: "/doctor",
