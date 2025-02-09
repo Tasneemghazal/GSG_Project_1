@@ -3,11 +3,14 @@ export const container = () => ({
     justifyContent: "space-between",
     alignItems: "center",
     marginTop: "20px",
-  });
-export const appointmentButton = () =>({
+
+    "& .book":{
     width:'250px',
     bgcolor: '#3572EF', 
-    color: 'black', 
+    color: '#fff', 
     padding: '10px 30px',
-    fontSize: '16px', 
-});
+    fontSize: '16px',
+    textAlign: 'center',
+    textDecoration: 'none'
+    }
+  });

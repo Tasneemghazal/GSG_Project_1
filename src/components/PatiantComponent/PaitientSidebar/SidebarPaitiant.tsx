@@ -3,14 +3,12 @@ import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText
 import { MdDashboard } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
 import { SlCalender } from "react-icons/sl";
-import { BsBookmarkPlus } from "react-icons/bs";
 import { box, drawer, list, listItemText } from './PatiantSidbar.style';
 
 const menuItems = [
   { text: "Dashboard", link: "dashboard", icon: <MdDashboard /> },
   { text: "My Appointments", link: "appointments", icon: <SlCalender /> },
   { text: "Search Doctors", link: "searchdoctors", icon: <FaSearch /> },
-  { text: "Booking", link: "booking", icon: <BsBookmarkPlus /> },
 ];
 
 

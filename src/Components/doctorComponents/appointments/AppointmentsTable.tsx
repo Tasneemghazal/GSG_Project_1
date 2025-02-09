@@ -28,7 +28,7 @@ const AppointmentsTable = ({ appointments, showSymptom, openNoteModal, handleSta
         <TableBody>
           {appointments.map((appointment) => (
             <TableRow key={appointment.id}>
-              <TableCell>{appointment.name}</TableCell>
+              <TableCell>{appointment.patientName}</TableCell>
               <TableCell align="right">{appointment.age}</TableCell>
               <TableCell align="right">{appointment.gender}</TableCell>
               <TableCell align="right">{appointment.contact}</TableCell>

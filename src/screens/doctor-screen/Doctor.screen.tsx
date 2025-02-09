@@ -12,7 +12,7 @@ const Doctor = () => {
         <Typography>Dashboard </Typography>
         <Typography>
           Doctor {">"}
-          <span className="title"> {location.pathname.slice(8)} </span>
+          <span className="path-title"> {location.pathname.slice(8)} </span>
         </Typography>
         <Outlet />
       </Box>

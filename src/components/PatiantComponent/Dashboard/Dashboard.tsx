@@ -31,11 +31,11 @@ const Dashboard = () => {
             <Grid item xs={12} md={6}>
               <HealthRecordComponent healthData={healthData} />
             </Grid>
-            <Grid item xs={12} md={6} sx={{ marginTop: 0 }}> {/* Adjust marginTop here */}
+            <Grid item xs={12} md={6} sx={{ marginTop: 0 }}>
               <Calender />
             </Grid>
 
-            <Grid item xs={12} md={6} sx={{ marginTop: 0 }}> {/* Adjust marginTop here */}
+            <Grid item xs={12} md={6} sx={{ marginTop: 0 }}>
               <UppCommingAppointments />
             </Grid>
             <Grid item xs={12} md={6}>
