@@ -10,32 +10,16 @@ import {
   MenuItem,
   Modal,
   Select,
+  SelectChangeEvent,
   Snackbar,
   TextField,
   ThemeProvider
 } from '@mui/material'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import doctor1 from '../../images/Doctors/01.jpg'
-import doctor2 from '../../images/Doctors/02.jpg'
-import doctor3 from '../../images/Doctors/03.jpg'
-import doctor4 from '../../images/Doctors/04.jpg'
-import doctor5 from '../../images/Doctors/04.jpg'
-import doctor6 from '../../images/Doctors/04.jpg'
-import doctor7 from '../../images/Doctors/04.jpg'
 import { form, group } from './appointment.style'
+import { Appointment } from '../../types/@types'
+import { appointmentInitialData } from '../../constants/formInitialValues'
 
-interface Appointment {
-  patientName: string
-  patientImg: string
-  age: number
-  doctor: string
-  doctorImg: string
-  email: string
-  gender: string
-  date: string
-  time: string
-  fees: string
-}
 const theme = createTheme({
   components: {
     MuiFormLabel: {
@@ -47,70 +31,74 @@ const theme = createTheme({
 })
 
 const doctors = [
-  { id: 1, name: 'Dr. Calvin Carlo', image: doctor1, fee: '100$' },
-  { id: 2, name: 'Dr. Cristino Murphy', image: doctor2, fee: '70$' },
-  { id: 3, name: 'Dr. Alia Reddy', image: doctor3, fee: '200$' },
-  { id: 4, name: 'Dr. Toni Kovar', image: doctor4, fee: '150$' },
-  { id: 5, name: 'Dr. Jessica McFarlane', image: doctor5, fee: '180$' },
-  { id: 6, name: 'Dr. Bertha Magers', image: doctor6, fee: '250$' },
-  { id: 7, name: 'Dr. Elsie Sherman', image: doctor7, fee: '300$' }
+  { id: 1, name: 'Dr. Calvin Carlo'},
+  { id: 2, name: 'Dr. Cristino Murphy'},
+  { id: 3, name: 'Dr. Alia Reddy'},
+  { id: 4, name: 'Dr. Toni Kovar'},
+  { id: 5, name: 'Dr. Jessica McFarlane'},
+  { id: 6, name: 'Dr. Bertha Magers'},
+  { id: 7, name: 'Dr. Elsie Sherman'}
 ]
 
-const Appointments = () => {
+interface AppointmentsProps {
+  onClose: () => void;
+}
+
+const Appointments = ({ onClose }: AppointmentsProps) => {
   const [open, setOpen] = useState(true)
   const [isBooked, setIsBooked] = useState(false)
-  const [addAppointments, setAddAppointments] = useState<Appointment>({
-    patientName: '',
-    patientImg: '',
-    age: 0,
-    doctor: '',
-    doctorImg: '',
-    email: '',
-    gender: '',
-    date: '',
-    time: '',
-    fees: ''
-  })
+  const [addAppointments, setAddAppointments] = useState<Appointment>(appointmentInitialData);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setAddAppointments({
-      ...addAppointments,
+  const handleChange = (e: React.ChangeEvent<{ name?: string; value: unknown }>) => {
+    const { name, value } = e.target;
+    if (!name) return;
+
+    setAddAppointments(prev => ({
+      ...prev,
       [name]: name === 'age' ? Number(value) : value
-    })
-  }
+    }));
+  };
 
-  const handleDoctorChange = (e: any) => {
-    const choosenDoctor = doctors.find(doc => doc.name === e.target.value)
-    setAddAppointments({
-      ...addAppointments,
-      doctor: choosenDoctor?.name || '',
-      doctorImg: choosenDoctor?.image || '',
-      fees: choosenDoctor?.fee || ''
-    })
-  }
+  const handleGenderChange = (e: SelectChangeEvent) => {
+    const { name, value } = e.target;
+    if (!name) return;
+
+    setAddAppointments(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleDoctorChange = (e: SelectChangeEvent) => {
+    const chosenDoctor = doctors.find(doc => doc.name === e.target.value);
+    setAddAppointments(prev => ({
+      ...prev,
+      doctorId: chosenDoctor?.id || 0,
+      doctorName: chosenDoctor?.name || '',
+    }));
+  };
 
   const handleBooking = () => {
     if (
       !addAppointments.patientName.trim() ||
       !addAppointments.age ||
-      !addAppointments.doctor.trim() ||
-      !addAppointments.email.trim() ||
+      !addAppointments.doctorName.trim() ||
+      !addAppointments.contact.trim() ||
       !addAppointments.date.trim() ||
       !addAppointments.time.trim()
     ) {
-      alert('Please fill all required data')
-      return
+      alert('Please fill all required fields');
+      return;
     }
-    setOpen(false)
-    setIsBooked(true)
-    // setTimeout(() => setIsBooked(false), 3000)
-  }
+
+    setOpen(false);
+    setIsBooked(true);
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <Modal open={open} onClose={() => setOpen(false)}>
+        <Modal open={open} onClose={onClose}>
           <Box sx={form}>
             <span>Book an Appointment</span>
             <TextField
@@ -129,14 +117,15 @@ const Appointments = () => {
                 required
                 margin='normal'
                 name='age'
+                type="number"
                 value={addAppointments.age}
                 onChange={handleChange}
               />
               <FormControl fullWidth required margin='normal'>
                 <InputLabel>Doctor</InputLabel>
                 <Select
-                  name='doctor'
-                  value={addAppointments.doctor}
+                  name='doctorName'
+                  value={addAppointments.doctorName}
                   onChange={handleDoctorChange}
                 >
                   {doctors.map(doc => (
@@ -148,11 +137,11 @@ const Appointments = () => {
               </FormControl>
               <TextField
                 fullWidth
-                label='Your Email'
+                label='Contact'
                 required
                 margin='normal'
-                name='email'
-                value={addAppointments.email}
+                name='contact'
+                value={addAppointments.contact}
                 onChange={handleChange}
               />
             </Box>
@@ -162,10 +151,10 @@ const Appointments = () => {
                 <Select
                   name='gender'
                   value={addAppointments.gender}
-                  onChange={handleChange}
+                  onChange={handleGenderChange}
                 >
-                  <MenuItem value='male'>Male</MenuItem>
-                  <MenuItem value='female'>Female</MenuItem>
+                  <MenuItem value='Male'>Male</MenuItem>
+                  <MenuItem value='Female'>Female</MenuItem>
                 </Select>
               </FormControl>
               <TextField
@@ -193,14 +182,15 @@ const Appointments = () => {
             </Box>
             <TextField
               fullWidth
-              label='Comments'
+              label='Symptoms'
               margin='normal'
               multiline
               rows={4}
-              name='comments'
+              name='symptoms'
+              value={addAppointments.symptoms}
               onChange={handleChange}
             />
-            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Box sx={group}>
               <Button
                 variant='contained'
                 sx={{ marginTop: 5 }}
@@ -212,7 +202,7 @@ const Appointments = () => {
                 variant='outlined'
                 color='error'
                 sx={{ marginTop: 5 }}
-                onClick={() => setOpen(false)}
+                onClick={onClose}
               >
                 Cancel
               </Button>
@@ -232,7 +222,7 @@ const Appointments = () => {
               variant='filled'
               icon={<CheckCircleIcon fontSize='inherit' />}
             >
-              Booking Successfully!
+              Booking Successful!
             </Alert>
           </Snackbar>
         )}

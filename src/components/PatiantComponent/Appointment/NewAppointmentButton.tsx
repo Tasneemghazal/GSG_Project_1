@@ -1,30 +1,31 @@
-import React from 'react';
-import { Container, Button, Box } from '@mui/material';
-import { useNavigate } from 'react-router-dom'; 
-import Search from '../Search/Search'; 
-import AddIcon from '@mui/icons-material/Add'; 
-import { appointmentButton, container } from './NewAppointment.style';
+import React, { useState } from 'react';
+import { Container, Box } from '@mui/material';
+import Search from '../Search/Search';  
+import { container } from './NewAppointment.style';
+import { Link } from 'react-router-dom';
+import Appointments from '../../appointments/appointments.component';
 
 const AppointmentButton: React.FC = () => {
-  const navigate = useNavigate(); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleNavigate = () => {
-    navigate('/booking'); 
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
   };
 
   return (
     <Container>
-      <Box sx={container()}
-      >
+      <Box sx={container}>
         <Search />
         
-        <Button  sx={appointmentButton()}
-          variant="contained"
-          onClick={handleNavigate}
-          startIcon={<AddIcon />} 
-        >
+        <Link to="#" onClick={handleModalOpen} className="book">
           Book New Appointment
-        </Button>
+        </Link>
+
+        {isModalOpen && <Appointments onClose={handleModalClose} />}
       </Box>
     </Container>
   );
