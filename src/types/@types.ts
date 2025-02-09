@@ -12,7 +12,13 @@ export interface Appointment {
     symptoms: string;
     status: Status;
   }
-
+export interface  Makeapponmentform  {
+    name: string,
+    email: string,
+    phone: string,
+    Subject:string,
+    message: string
+}
 
 // this will be deleted 
 // src/data/appointmentsData.ts

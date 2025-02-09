@@ -10,7 +10,8 @@ import Doctor from "./screens/doctor-screen/Doctor.screen";
 import Patient from "./screens/Patient.screen";
 import DoctorDashboard from "./Components/doctorComponents/doctor-dashboard/DoctorDashboard";
 import Appointments from "./screens/doctor-screen/Appointments.screen";
-
+import Navbar from "./Components/HomeComponents/Nav/Navbar";
+import Footer from "./Components/HomeComponents/Footer/Footer"
 const App = () => {
   const routes: RouteObject[] = [
     { path: "/", element: <Home /> },
@@ -28,7 +29,13 @@ const App = () => {
     { path: "/patient", element: <Patient /> },
   ];
   const browserRouter = createBrowserRouter(routes);
-  return <RouterProvider router={browserRouter} />;
+  return (
+  <>
+      <Navbar />
+    <RouterProvider router={browserRouter} />
+    <Footer />
+  </> )
+ 
 };
 
 export default App;

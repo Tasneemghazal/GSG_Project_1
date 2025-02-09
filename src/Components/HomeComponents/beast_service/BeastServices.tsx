@@ -55,8 +55,6 @@ const BeastServices = () => {
                 spaceBetween: 40,
               },
             }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log("slide change")}
           >
             <SwiperSlide>
               <div className="card">

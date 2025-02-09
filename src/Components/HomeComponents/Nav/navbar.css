@@ -48,6 +48,7 @@ body {
     background-color: #d8e9fb;
     display: flex; /* Ensure it's displayed as flex */
     width: 50%;
+    padding: 10px;
   }
   
   .nav .nav-menu ul {

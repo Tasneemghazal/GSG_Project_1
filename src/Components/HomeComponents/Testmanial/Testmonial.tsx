@@ -32,7 +32,8 @@ const Testimonial = () => {
                     <Star size={32} weight="fill" />
                     <Star size={32} />
                   </div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et est id nisi aliquet consectetur. Duis in ex at risus finibus tempus.</p>
+                  <p><q>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et est id nisi aliquet consectetur. Duis in ex at risus finibus tempus. </q></p>
                   <div className="profile">
                     <img src={user} alt="Profile" />
                     <p>- John Doe, <span>Lorem Ipsum Inc.</span></p>
@@ -48,7 +49,7 @@ const Testimonial = () => {
                     <Star size={32} weight="fill" />
                     <Star size={32} />
                   </div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et est id nisi aliquet consectetur. Duis in ex at risus finibus tempus.</p>
+                  <p><q>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et est id nisi aliquet consectetur. Duis in ex at risus finibus tempus. </q></p>
                   <div className="profile">
                     <img src={user} alt="Profile" />
                     <p>- John Doe, <span>Lorem Ipsum Inc.</span></p>
@@ -64,7 +65,7 @@ const Testimonial = () => {
                     <Star size={32} weight="fill" />
                     <Star size={32} />
                   </div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et est id nisi aliquet consectetur. Duis in ex at risus finibus tempus.</p>
+                  <p><q>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et est id nisi aliquet consectetur. Duis in ex at risus finibus tempus.</q></p>
                   <div className="profile">
                     <img src={user} alt="Profile" />
                     <p>- John Doe, <span>Lorem Ipsum Inc.</span></p>
