@@ -1,6 +1,7 @@
 import { Box, Paper, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
+import { box, box2, paper,typography } from './Report.style';
 
 interface HealthData {
   icon: JSX.Element;
@@ -8,7 +9,6 @@ interface HealthData {
   value: string;
 }
 
-// Hardcoded health data
 const healthData: HealthData[] = [
   { icon: <span>❤️</span>, label: 'Heart Rate', value: '140' },
   { icon: <span>🩸</span>, label: 'Blood Pressure', value: '100/70' },
@@ -24,10 +24,10 @@ export default function Report() {
 
   return (
     <Container maxWidth="sm"> 
-      <Paper sx={{ padding: 2, borderRadius: 2, boxShadow: 2, border: `1px solid #E0E0E0`, width: '100%' }}>
+      <Paper sx={paper()}>
         <Box>
-          <Box sx={{ borderBottom: '2px solid #050C9C', pb: 1, width: '100%' }}>
-            <Typography variant="h5" sx={{ marginBottom: 2, color: '#050C9C' }}>
+          <Box sx={box()}>
+            <Typography variant="h5" sx={typography()}>
               Health Report
             </Typography>
           </Box>
@@ -41,11 +41,11 @@ export default function Report() {
             <XAxis dataKey="metric" />
             <YAxis />
             <Tooltip />
-            <Bar dataKey="value" fill="#3572EF" /> {/* Set the bar color here */}
+            <Bar dataKey="value" fill="#3572EF" /> 
           </BarChart>
           <Box sx={{ marginTop: 2 }}>
             {healthData.map((item, index) => (
-              <Box key={index} sx={{ display: 'flex', alignItems: 'center', marginBottom: 1 }}>
+              <Box key={index} sx={box2()}>
                 <Box sx={{ marginRight: 1 }}>{item.icon}</Box>
                 <Typography variant="body1">{item.label}: {item.value}</Typography>
               </Box>

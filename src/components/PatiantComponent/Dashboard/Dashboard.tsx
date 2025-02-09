@@ -1,13 +1,14 @@
 import { Box, Container, Grid } from '@mui/material';
-import UppCommingAppointments from './UppComingAppointment';
+import UppCommingAppointments from '../UppCommingAppointment/UppComingAppointment';
 import { CiTempHigh } from 'react-icons/ci';
 import { FaHeart, FaSyringe, FaUserEdit } from 'react-icons/fa';
 import { MdAddBox } from 'react-icons/md';
 import { SiOxygen } from 'react-icons/si';
-import HealthRecordComponent from './HealthReacord';
-import Report from './Report';
-import Calender from './Calender';
-import AppointmentButton from './NewAppointmentButton';
+import Report from '../Report/Report';
+import AppointmentButton from '../Appointment/NewAppointmentButton';
+import HealthRecordComponent from '../HealthRecord/HealthReacord';
+import Calender from '../Calender/Calender';
+import { box } from './dashboard.styl';
 
 const healthData = [
   { icon: <FaHeart />, label: "Heart Rate", value: "140 BPM" },
@@ -21,7 +22,7 @@ const healthData = [
 const Dashboard = () => {
   return (
     <Container>
-      <Box sx={{ display: 'flex', height: '100vh', bgcolor: 'white' }}>
+      <Box sx={box()}>
         <Box sx={{ flexGrow: 1 }}>
           <Grid>
           <AppointmentButton />

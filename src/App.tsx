@@ -8,10 +8,15 @@ import Register from "./screens/RegisterScreen/index";
 import Home from "./screens/Home.screen";
 import Doctor from "./screens/doctor-screen/Doctor.screen";
 import Patient from "./screens/Patient.screen";
+
+import Admin from "./screens/Admin.screen";
+import PatientDashboard from "./components/PatiantComponent/Dashboard/Dashboard";
+import Booking from "./components/PatiantComponent/Booking/BookingAppointment";
 import DoctorDashboard from "./Components/doctorComponents/doctor-dashboard/DoctorDashboard";
 import Appointments from "./screens/doctor-screen/Appointments.screen";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Booking from "./components/Booking/BookingAppointment";
+
 import { ThemeProvider, createTheme } from "@mui/material/styles"; // Import ThemeProvider
 // import Search from "./components/Search/SearchDoctor";
 
