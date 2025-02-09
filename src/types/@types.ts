@@ -13,6 +13,21 @@ export interface Appointment {
     status: Status;
   }
 
+export enum UserType {
+  Patient = "patient",
+  Doctor = "doctor",
+}
+
+export interface LoggedUser {
+  email: string;
+  password: string;
+}
+
+export interface User extends LoggedUser {
+  phone: string;
+  userType: UserType
+}
+
 
 // this will be deleted 
 // src/data/appointmentsData.ts
