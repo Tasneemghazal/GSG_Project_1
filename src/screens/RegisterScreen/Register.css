@@ -52,7 +52,7 @@ button {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
-  background-color: #09e5ab;
+  background-color: #4F75FF;
   color: white;
   border: none;
   border-radius: 4px;
@@ -61,7 +61,7 @@ button {
 }
 
 button:hover {
-  background-color: #4cae4c;
+  background-color: #4368ef;
 }
 
 .error-message {
