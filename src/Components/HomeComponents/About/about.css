@@ -1,0 +1,102 @@
+.about-section{
+    background: rgb(130, 177, 226);
+    background: -moz-linear-gradient(top, rgba(216,233,251,1) 0%, rgba(216,233,251,0.8) 50%, rgba(216,233,251,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(216,233,251,1) 0%, rgba(216,233,251,0.8) 50%, rgba(216,233,251,1) 100%);
+    background: linear-gradient(to bottom, rgba(216,233,251,1) 0%, rgba(216,233,251,0.8) 50%, rgba(216,233,251,1) 100%);
+    padding: 50px 0;
+}
+
+.about-section .container .cards {
+    display: flex;
+    gap: 10px;
+}
+
+.about-section .container .cards .card {
+    width: calc((100% - 30px)/3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #d8e9fb;
+    gap: 10px;
+    background-color:  #c5ddff;
+    border-radius: 20px;
+    padding: 5px 20px ;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+}
+
+.about-section .container .cards .card:hover {
+    background: linear-gradient(to bottom right, rgb(150, 191, 232) 0%, rgba(231, 234, 239, 0.8) 50%, rgb(155, 196, 236) 100%);
+    transform: scale(1.02);
+    color: #fff;
+}
+
+.flex {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.about-section .container .cards .card .header {
+    text-transform: capitalize;
+    color: #002570;
+    font-weight: bold;
+    width: 100%;
+    border-bottom: 1px solid  #fff;
+}
+
+.about-section .container a {
+    border-radius: 30px;
+    background-color: #007eff;
+    padding: 5px ;
+    cursor: pointer;
+    border: 1px solid #d8e9fb;
+    text-decoration: none;
+    color: #d8e9fb;
+    font-size: 18px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.about-section h2 {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.about-section .container a:hover {
+    background-color: #002570;
+    color: #fff;
+}
+
+.about-section .container .cards .card img {
+    height: 120px;
+    object-fit: cover;
+}
+
+.about-section .container .cards .card .content {
+    text-align: center;
+    color: #002570;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.about-section .container .cards .card .content:hover {
+    color: #fff;
+}
+
+.about-section .container .cards .card .content p {
+    color: #908383;
+}
+
+.about-section .container .cards .card .content p:hover {
+    color: #fff;
+}
+@media (max-width:784px) {
+    .about-section .container .cards{
+        flex-direction: column;
+        align-items: center;
+    } 
+    .about-section .container .cards .card{
+        width: 100%;
+    }
+}

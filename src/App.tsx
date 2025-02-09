@@ -3,13 +3,20 @@ import {
   RouteObject,
   RouterProvider,
 } from "react-router-dom";
-import Login from "./screens/Login.screen";
+import Login from "./screens/LoginScreen/Login.screen";
+import Register from "./screens/RegisterScreen/index";
 import Home from "./screens/Home.screen";
-import Doctor from "./screens/Doctor.screen";
+import Doctor from "./screens/doctor-screen/Doctor.screen";
 import Patient from "./screens/Patient.screen";
+
 import Admin from "./screens/Admin.screen";
-import Dashboard from "./components/PatiantComponent/Dashboard/Dashboard";
+import PatientDashboard from "./components/PatiantComponent/Dashboard/Dashboard";
 import Booking from "./components/PatiantComponent/Booking/BookingAppointment";
+import DoctorDashboard from "./Components/doctorComponents/doctor-dashboard/DoctorDashboard";
+import Appointments from "./screens/doctor-screen/Appointments.screen";
+import Dashboard from "./components/Dashboard/Dashboard";
+import Booking from "./components/Booking/BookingAppointment";
+
 import { ThemeProvider, createTheme } from "@mui/material/styles"; // Import ThemeProvider
 // import Search from "./components/Search/SearchDoctor";
 
@@ -21,7 +28,16 @@ const App = () => {
   const routes: RouteObject[] = [
     { path: "/", element: <Home /> },
     { path: "/login", element: <Login /> },
-    { path: "/doctor", element: <Doctor /> },
+    { path: "/Register", element: <Register /> },
+    {
+      path: "/doctor",
+      element: <Doctor />,
+      children: [
+        {index: true, element: <DoctorDashboard /> },
+        { path: "dashboard", element: <DoctorDashboard /> },
+        { path: "appointments", element: <Appointments /> },
+      ],
+    },
     { 
       path: "/patient", 
       element: <Patient />,
@@ -31,7 +47,6 @@ const App = () => {
         { path: "booking", element: <Booking /> },
       ] 
     },
-    { path: "/admin", element: <Admin /> },
   ];
   
   const browserRouter = createBrowserRouter(routes);

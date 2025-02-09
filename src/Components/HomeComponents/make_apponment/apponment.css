@@ -1,0 +1,98 @@
+.appinment{
+    background: linear-gradient(to bottom, rgba(216, 233, 251, 1) 0%, rgba(216, 233, 251, 0.8) 50%, rgba(216, 233, 251, 1) 100%);
+}
+.appinment .flex{
+    display: flex;
+    gap: 10px;
+}
+.appinment .img img {
+  border-radius: 20px; 
+}
+.appinment .data{
+    width: 50%;
+    padding: 10px 30px;
+}
+
+.appinment .data h2{
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    color:darkblue;
+}
+
+.appinment .data span{
+    font-size: 10px;
+    margin-bottom: 10px;
+    color:#007eff;
+}
+.appinment .data  .form .input{
+    display: flex;
+    margin: 10px;
+    gap: 10px;
+}
+.appinment .data  .form  input[type="text"]{
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid darkblue;
+    width: 50%;
+    background-color: transparent;
+    color: darkblue;
+}
+::placeholder {
+    color: darkblue;
+    opacity: 1; /* Firefox */
+  }
+  
+.appinment .data  .form  button{
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    background-color:darkblue;
+    padding: 20px 5px;
+    cursor: pointer;
+    color: #d8e9fb;
+    border: none;
+    font-size: 18px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin: 20px 30px;
+}
+
+.appinment .data  .form  button:hover{
+    background-color:#007eff;
+    color: #d8e9fb;
+}
+
+.appinment textarea{
+    border-radius: 10px;
+    border: 1px solid darkblue;
+    padding: 10px;
+    width: 100%;
+    height: 100px;
+    resize: none;
+    color: darkblue;
+    background-color: transparent;
+}
+
+@media  (max-width: 900px) {
+ .appinment .data{
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+  }
+  .appinment .data  .form{
+    margin: 10px 0;
+  }
+  .appinment .img{
+    display: none;
+  }
+  .appinment .data  .form .input{
+    flex-direction: column;
+    gap: 5px;
+  }
+  .appinment .data  .form  input[type="text"]{
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
