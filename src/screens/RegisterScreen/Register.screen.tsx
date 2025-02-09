@@ -2,20 +2,13 @@ import { useContext, useState } from "react";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
-import { User, UserType } from "../../types/@types";
 import { RegisterFormErrors, validateRegisterForm } from "../../utils/validation";
+import { RegisterInitialData } from "../../constants/formInitialValues";
 
-
-const initialData: User={
-  email: "",
-  password: "",
-  phone: "",
-  userType: UserType.Patient,
-}
 const Register = () => {
   const navigate = useNavigate();
   const{register} = useContext(AuthContext);
-  const [formData, setFormData] = useState(initialData);
+  const [formData, setFormData] = useState(RegisterInitialData);
   const [error, setError] = useState<RegisterFormErrors>({});
   const [userExists, setUserExists] = useState(false);
 
