@@ -10,6 +10,14 @@ import Doctor from "./screens/doctor-screen/Doctor.screen";
 import Patient from "./screens/Patient.screen";
 import DoctorDashboard from "./Components/doctorComponents/doctor-dashboard/DoctorDashboard";
 import Appointments from "./screens/doctor-screen/Appointments.screen";
+import Dashboard from "./components/Dashboard/Dashboard";
+import Booking from "./components/Booking/BookingAppointment";
+import { ThemeProvider, createTheme } from "@mui/material/styles"; // Import ThemeProvider
+// import Search from "./components/Search/SearchDoctor";
+
+// Register required Chart.js elements ONCE
+
+const theme = createTheme();
 
 const App = () => {
   const routes: RouteObject[] = [
@@ -25,10 +33,24 @@ const App = () => {
         { path: "appointments", element: <Appointments /> },
       ],
     },
-    { path: "/patient", element: <Patient /> },
+    { 
+      path: "/patient", 
+      element: <Patient />,
+      children: [
+        { path: "dashboard", element: <Dashboard/> },
+        // { path: "search", element: <Search /> },
+        { path: "booking", element: <Booking /> },
+      ] 
+    },
   ];
+  
   const browserRouter = createBrowserRouter(routes);
-  return <RouterProvider router={browserRouter} />;
+  
+  return (
+    <ThemeProvider theme={theme}> {/* Wrap your app in the ThemeProvider */}
+      <RouterProvider router={browserRouter} />
+    </ThemeProvider>
+  );
 };
 
 export default App;
