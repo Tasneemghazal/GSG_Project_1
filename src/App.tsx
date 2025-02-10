@@ -7,11 +7,12 @@ import Login from "./screens/LoginScreen/Login.screen";
 import Register from "./screens/RegisterScreen/index";
 import Home from "./screens/Home.screen";
 import Doctor from "./screens/doctor-screen/Doctor.screen";
-import Patient from "./screens/Patient.screen";
-import DoctorDashboard from "./Components/doctorComponents/doctor-dashboard/DoctorDashboard";
+import Patient from "./screens/patient-screen/Patient.screen";
 import AppointmentsScreen from "./screens/doctor-screen/Appointments.screen";
-import Dashboard from "./Components/PatiantComponent/Dashboard/Dashboard";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Booking from "./screens/book-appointment/Booking.screen";
+import DoctorDashboard from "./screens/doctor-dashboard/DoctorDashboard";
+import { Dashboard } from "@mui/icons-material";
 
 const theme = createTheme();
 
@@ -33,7 +34,9 @@ const App = () => {
       path: "/patient", 
       element: <Patient />,
       children: [
-        { path: "dashboard", element: <Dashboard/> },
+      {index:true, element: <Dashboard/> },
+      {path: "dashboard", element: <Dashboard/>},
+      {path:"booking", element:<Booking/>},
       ] 
     },
   ];

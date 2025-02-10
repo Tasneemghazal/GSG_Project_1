@@ -3,6 +3,10 @@ export enum Status {
     Confirmed="Confirmed",
     Completed="Completed"
 }
+export enum ModalMode {
+  SYMPTOM="SYMPTOM",
+  NOTE="NOTE",
+}
 export interface Appointment {
     id: number;
     patientId: number;

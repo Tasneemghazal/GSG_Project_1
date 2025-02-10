@@ -9,10 +9,18 @@ export const form = () => ({
   boxShadow: 24,
   p: 4,
   borderRadius: '10px',
-  overflow: 'auto'
+  overflow: 'auto',
+  ml:5
 })
 
 export const group = () => ({
   display: 'flex',
+  justifyContent: 'center',
   gap: 2
+})
+
+export const button = () => ({
+  marginTop: 5,
+  width:'50%',
+   
 })

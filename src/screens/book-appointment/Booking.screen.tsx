@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './appointments.css'
+import './booking.css'
 import Button from '@mui/material/Button'
 import {
   Alert,
@@ -8,7 +8,6 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  Modal,
   Select,
   SelectChangeEvent,
   Snackbar,
@@ -16,7 +15,7 @@ import {
   ThemeProvider
 } from '@mui/material'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import { form, group } from './appointment.style'
+import { button, form, group } from './booking.style'
 import { Appointment } from '../../types/@types'
 import { appointmentInitialData } from '../../constants/formInitialValues'
 
@@ -40,12 +39,8 @@ const doctors = [
   { id: 7, name: 'Dr. Elsie Sherman'}
 ]
 
-interface AppointmentsProps {
-  onClose: () => void;
-}
 
-const Appointments = ({ onClose }: AppointmentsProps) => {
-  const [open, setOpen] = useState(true)
+const Booking = () => {
   const [isBooked, setIsBooked] = useState(false)
   const [addAppointments, setAddAppointments] = useState<Appointment>(appointmentInitialData);
 
@@ -91,14 +86,12 @@ const Appointments = ({ onClose }: AppointmentsProps) => {
       return;
     }
 
-    setOpen(false);
     setIsBooked(true);
   };
 
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <Modal open={open} onClose={onClose}>
           <Box sx={form}>
             <span>Book an Appointment</span>
             <TextField
@@ -193,22 +186,13 @@ const Appointments = ({ onClose }: AppointmentsProps) => {
             <Box sx={group}>
               <Button
                 variant='contained'
-                sx={{ marginTop: 5 }}
+                sx={button}
                 onClick={handleBooking}
               >
                 Book an Appointment
               </Button>
-              <Button
-                variant='outlined'
-                color='error'
-                sx={{ marginTop: 5 }}
-                onClick={onClose}
-              >
-                Cancel
-              </Button>
             </Box>
           </Box>
-        </Modal>
         {isBooked && (
           <Snackbar
             open={isBooked}
@@ -231,4 +215,4 @@ const Appointments = ({ onClose }: AppointmentsProps) => {
   )
 }
 
-export default Appointments
+export default Booking;
