@@ -30,7 +30,7 @@
     margin: 10px;
     gap: 10px;
 }
-.appinment .data  .form  input[type="text"]{
+.appinment .data  .form  input[type="text"] , .appinment .data .form input[type="email"]{
     padding: 10px;
     border-radius: 10px;
     border: 1px solid darkblue;
@@ -42,7 +42,9 @@
     color: darkblue;
     opacity: 1; /* Firefox */
   }
-  
+  .errr{
+    border-color: red !important;
+  }
 .appinment .data  .form  button{
     width: 200px;
     display: flex;
@@ -91,7 +93,7 @@
     flex-direction: column;
     gap: 5px;
   }
-  .appinment .data  .form  input[type="text"]{
+  .appinment .data  .form  input[type="text"] , .appinment .data  .form  input[type="email"]{
     width: 100%;
     margin-bottom: 10px;
   }

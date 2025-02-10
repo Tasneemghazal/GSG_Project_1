@@ -21,7 +21,14 @@ export interface Appointment {
     symptoms: string;
     status: Status;
     note?: string;
-  }
+}
+export interface  Makeapponmentform  {
+    name: string,
+    email: string,
+    phone: string,
+    Subject:string,
+    message: string
+}
 
 export enum UserType {
   Patient = "patient",
