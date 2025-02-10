@@ -1,5 +1,7 @@
-import { Box, Button, Modal, TextField, Typography } from "@mui/material";
+import { Box, Modal,Typography } from "@mui/material";
+import { ModalMode } from "../../types/@types";
 import { modal, symptom, symptomTitle } from "./custom-modal.style";
+import AddNote from "../doctorComponents/add-note/AddNote";
 
 interface IProps {
   open: boolean;
@@ -20,29 +22,18 @@ const CustomModal = ({
 }: IProps) => {
   return (
     <Modal open={open} onClose={handleClose} aria-labelledby="modal-title">
-      {mode === "SYMPTOM" ? (
+      {mode === ModalMode.SYMPTOM ? (
         <Box sx={modal}>
           <Typography sx={symptomTitle}>Patient Symptoms:</Typography>
           <Typography sx={symptom}>{selectedSymptom}</Typography>
         </Box>
       ) : (
-        <Box sx={modal}>
-          <Typography sx={symptomTitle}>Add Note:</Typography>
-          <TextField
-            fullWidth
-            variant="outlined"
-            value={note}
-            onChange={addNote}
-            placeholder="Enter note here..."
-            sx={{ marginBottom: 2 }}
-          />
-          <Button variant="contained" onClick={handleClose}>
-            Save
-          </Button>
-        </Box>
+        <AddNote note={note} addNote={addNote} handleClose={handleClose}/>
       )}
     </Modal>
   );
 };
 
 export default CustomModal;
+
+
