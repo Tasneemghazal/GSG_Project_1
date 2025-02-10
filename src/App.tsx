@@ -7,11 +7,15 @@ import Login from "./screens/LoginScreen/Login.screen";
 import Register from "./screens/RegisterScreen/index";
 import Home from "./screens/Home.screen";
 import Doctor from "./screens/doctor-screen/Doctor.screen";
-import Patient from "./screens/Patient.screen";
-import DoctorDashboard from "./Components/doctorComponents/doctor-dashboard/DoctorDashboard";
-import Appointments from "./screens/doctor-screen/Appointments.screen";
-import Navbar from "./Components/HomeComponents/Nav/Navbar";
-import Footer from "./Components/HomeComponents/Footer/Footer"
+import Patient from "./screens/patient-screen/Patient.screen";
+import AppointmentsScreen from "./screens/doctor-screen/Appointments.screen";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Booking from "./screens/book-appointment/Booking.screen";
+import DoctorDashboard from "./screens/doctor-dashboard/DoctorDashboard";
+import { Dashboard } from "@mui/icons-material";
+
+const theme = createTheme();
+
 const App = () => {
   const routes: RouteObject[] = [
     { path: "/", element: <Home /> },
@@ -23,19 +27,28 @@ const App = () => {
       children: [
         {index: true, element: <DoctorDashboard /> },
         { path: "dashboard", element: <DoctorDashboard /> },
-        { path: "appointments", element: <Appointments /> },
+        { path: "appointments", element: <AppointmentsScreen /> },
       ],
     },
-    { path: "/patient", element: <Patient /> },
+    { 
+      path: "/patient", 
+      element: <Patient />,
+      children: [
+      {index:true, element: <Dashboard/> },
+      {path: "dashboard", element: <Dashboard/>},
+      {path:"booking", element:<Booking/>},
+      ] 
+    },
   ];
+  
   const browserRouter = createBrowserRouter(routes);
+  
   return (
-  <>
-      <Navbar />
-    <RouterProvider router={browserRouter} />
-    <Footer />
-  </> )
- 
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={browserRouter} />
+    </ThemeProvider>
+  );
 };
 
 export default App;
+

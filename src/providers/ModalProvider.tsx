@@ -1,6 +1,7 @@
 import React, { createContext, useReducer } from "react";
 import { Action, IState} from "../state/modalReducer";
 import reducer from "../state/modalReducer";
+import { ModalMode } from "../types/@types";
 interface IStateContext {
     state:IState, 
     dispatch:React.Dispatch<Action>
@@ -15,7 +16,7 @@ const initialState: IState = {
     open: false,
     symptom: "",
     note: "",
-    mode: "SYMPTOM",
+    mode: ModalMode.SYMPTOM,
   };
   
   export const ModalContext = createContext<IStateContext>({

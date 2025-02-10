@@ -1,67 +1,37 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./Register.css";
-import useLocalStorage from "../../hooks/local-storage";
 import { useNavigate } from "react-router-dom";
-
-interface Types {
-  email?: string;
-  Password?: string;
-  phone?: string;
-}
+import { AuthContext } from "../../providers/AuthProvider";
+import { RegisterFormErrors, validateRegisterForm } from "../../utils/validation";
+import { RegisterInitialData } from "../../constants/formInitialValues";
 
 const Register = () => {
   const navigate = useNavigate();
-
-  const [formData, setFormData] = useState({
-    email: "",
-    Password: "",
-    phone: "",
-    userType: "patient",
-  });
-
-  const [error, setError] = useState<Types>({});
-  const [storedUser, setStoredUser] = useLocalStorage("user", null);
+  const{register} = useContext(AuthContext);
+  const [formData, setFormData] = useState(RegisterInitialData);
+  const [error, setError] = useState<RegisterFormErrors>({});
   const [userExists, setUserExists] = useState(false);
 
-  const validateForm = () => {
-    let newError: Types = {};
-
-    if (!formData.email.includes("@")) {
-      newError.email = "Invalid email address.";
-    }
-
-    if (formData.Password.length < 6) {
-      newError.Password = "Password must be at least 6 characters.";
-    }
-
-    if (!/^\d{10}$/.test(formData.phone)) {
-      newError.phone = "Phone number must be 10 digits.";
-    }
-
-    setError(newError);
-    return Object.keys(newError).length === 0;
-  };
 
   const handelSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const validateValue = validateForm();
-    if (!validateValue) return;
-
-    const existingUser = localStorage.getItem(formData.email);
-    if (existingUser) {
-      setUserExists(true);
-    } else {
-      localStorage.setItem(formData.email, JSON.stringify(formData));
-      setUserExists(false);
-
-      if (formData.userType === "patient") {
-        navigate("/Patient");
-      } else {
-        navigate("/Doctor");
-        // window.location.href = "../Doctor.screen";
-      }
+    const validationErrors = validateRegisterForm(formData);
+    setError(validationErrors);
+    if (Object.keys(validationErrors).length !== 0){
+      return;
     }
+    const exist = register(formData)
+    if(exist){
+      alert("user already registered")
+    }
+      else{
+        if (formData.userType === "patient") {
+          navigate("/Patient");
+        } else {
+          navigate("/Doctor");
+        }
+      }
   };
 
   const handelChange = (
@@ -94,12 +64,12 @@ const Register = () => {
           <div className="input-group">
             <label>Password:</label>
             <input
-              type="Password"
-              name="Password"
-              value={formData.Password}
+              type="password"
+              name="password"
+              value={formData.password}
               onChange={handelChange}
             />
-            {error && <p className="error-message">{error.Password}</p>}
+            {error && <p className="error-message">{error.password}</p>}
           </div>
 
           <div className="input-group">
