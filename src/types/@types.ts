@@ -7,20 +7,35 @@ export enum ModalMode {
   SYMPTOM="SYMPTOM",
   NOTE="NOTE",
 }
+// export interface Appointment {
+//     id: number;
+//     patientId: number;
+//     patientName: string;
+//     doctorName: string;
+//     doctorId: number;
+//     date: string;
+//     time: string;
+//     age: number;
+//     gender: string;
+//     contact: string;
+//     symptoms: string;
+//     status: Status;
+//     note?: string;
+// }
 export interface Appointment {
-    id: number;
-    patientId: number;
-    patientName: string;
-    doctorName: string;
-    doctorId: number;
-    date: string;
-    time: string;
-    age: number;
-    gender: string;
-    contact: string;
-    symptoms: string;
-    status: Status;
-    note?: string;
+  id:number;
+  patientName: string;
+  age: number;
+  doctorId: number;
+  doctorName: string;
+  contact: string;
+  gender: string;
+  date: string;
+  time: string;
+  symptoms: string;
+  status: Status;
+  note?: string;
+
 }
 export interface  Makeapponmentform  {
     name: string,
@@ -53,7 +68,6 @@ export const initialAppointments: Appointment[] = [
   {
     id: 1,
     patientName: "John Doe",
-    patientId: 1,
     doctorName: "John Doe",
     doctorId: 1,
     age: 29,
@@ -67,7 +81,6 @@ export const initialAppointments: Appointment[] = [
   {
     id: 2,
     patientName: "John Doe",
-    patientId: 1,
     doctorName: "John Doe",
     doctorId: 1,
     age: 29,

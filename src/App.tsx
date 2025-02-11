@@ -12,8 +12,8 @@ import AppointmentsScreen from "./screens/doctor-screen/Appointments.screen";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Booking from "./screens/book-appointment/Booking.screen";
 import DoctorDashboard from "./screens/doctor-dashboard/DoctorDashboard";
-import { Dashboard } from "@mui/icons-material";
-
+import Dashboard from "./screens/patient-dashboard/Dashboard";
+import { AppointmentProvider } from "./providers/AppointmentProvider";
 const theme = createTheme();
 
 const App = () => {
@@ -44,10 +44,12 @@ const App = () => {
   const browserRouter = createBrowserRouter(routes);
   
   return (
-    <ThemeProvider theme={theme}>
-      <RouterProvider router={browserRouter} />
-    </ThemeProvider>
-  );
+    <AppointmentProvider>
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={browserRouter} />
+      </ThemeProvider>
+    </AppointmentProvider>
+  )
 };
 
 export default App;

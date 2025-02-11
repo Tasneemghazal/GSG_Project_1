@@ -1,23 +1,16 @@
-import {useState } from "react";
+import React from "react";
 import { Paper, Box, InputBase, IconButton } from "@mui/material";
 import { SearchOutlined } from "@mui/icons-material";
-import { Appointment, initialAppointments, Status } from "../../types/@types";
-import CustomModal from "../../components/custom-modal/CustomModal"
 import AppointmentsTable from "../../Components/doctorComponents/appointments/AppointmentsTable";
 import { inputSearch } from "./doctor.style";
 import useModal from "../../hooks/useModal";
+import { useAppointmentContext } from "../../providers/AppointmentProvider"; // Import context
+import CustomModal from "../../Components/custom-modal/CustomModal";
 
-const Appointments=()=> {
-  const [appointments, setAppointments] = useState<Appointment[]>(initialAppointments);
-  const{state, dispatch}=useModal();
-
-  const handleStatusChange = (id: number, newStatus: Status) => {
-    setAppointments((prevAppointments) =>
-      prevAppointments.map((appointment) =>
-        appointment.id === id ? { ...appointment, status: newStatus } : appointment
-      )
-    );
-  };
+const Appointments = () => {
+  const { state } = useAppointmentContext(); 
+  const appointments = state.appointments; 
+  const { state: modalState, dispatch } = useModal();
 
   const showSymptom = (symptom: string) => {
     dispatch({ type: "OPEN_MODAL", payload: symptom });
@@ -44,14 +37,23 @@ const Appointments=()=> {
         </IconButton>
       </Paper>
       <AppointmentsTable
-        appointments={appointments}
+        appointments={appointments} 
         showSymptom={showSymptom}
         openNoteModal={openNoteModal}
-        handleStatusChange={handleStatusChange}
+        handleStatusChange={(id, newStatus) => {
+        }}
       />
 
-      <CustomModal open={state.open} handleClose={handleClose} selectedSymptom={state.symptom} addNote={addNote} mode={state.mode} note={state.note} />
+      <CustomModal 
+        open={modalState.open} 
+        handleClose={handleClose} 
+        selectedSymptom={modalState.symptom} 
+        addNote={addNote} 
+        mode={modalState.mode} 
+        note={modalState.note} 
+      />
     </Box>
   );
 }
+
 export default Appointments;
