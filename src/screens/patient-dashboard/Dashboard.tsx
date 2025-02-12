@@ -1,14 +1,15 @@
 import { Box, Container, Grid } from '@mui/material';
-import UppCommingAppointments from '../UppCommingAppointment/UppComingAppointment';
 import { CiTempHigh } from 'react-icons/ci';
 import { FaHeart, FaSyringe, FaUserEdit } from 'react-icons/fa';
 import { MdAddBox } from 'react-icons/md';
 import { SiOxygen } from 'react-icons/si';
-import Report from '../Report/Report';
-import AppointmentButton from '../Appointment/NewAppointmentButton';
-import HealthRecordComponent from '../HealthRecord/HealthReacord';
-import Calender from '../Calender/Calender';
 import { box } from './dashboard.styl';
+import AppointmentButton from '../../Components/PatiantComponent/Appointment/NewAppointmentButton';
+import Calender from '../../Components/PatiantComponent/Calender/Calender';
+import HealthRecordComponent from '../../Components/PatiantComponent/HealthRecord/HealthReacord';
+import UppCommingAppointments from '../../Components/PatiantComponent/UppCommingAppointment/UppComingAppointment';
+import Report from '../../Components/PatiantComponent/Report/Report';
+
 
 const healthData = [
   { icon: <FaHeart />, label: "Heart Rate", value: "140 BPM" },
@@ -36,15 +37,16 @@ const Dashboard = () => {
             </Grid>
 
             <Grid item xs={12} md={6} sx={{ marginTop: 0 }}>
-              <UppCommingAppointments />
+               <UppCommingAppointments />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Report />
-            </Grid>
 
+            </Grid>
+              <Report/>
           </Grid>
         </Box>
       </Box>
+      
     </Container>
   );
 }

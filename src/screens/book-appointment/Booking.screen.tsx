@@ -1,8 +1,7 @@
-import { useState } from 'react'
-import './booking.css'
-import Button from '@mui/material/Button'
+import React, { useState } from 'react';
+import './booking.css';
+import Button from '@mui/material/Button';
 import {
-  Alert,
   Box,
   createTheme,
   FormControl,
@@ -10,14 +9,14 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
-  Snackbar,
   TextField,
   ThemeProvider
-} from '@mui/material'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import { button, form, group } from './booking.style'
-import { Appointment } from '../../types/@types'
-import { appointmentInitialData } from '../../constants/formInitialValues'
+} from '@mui/material';
+import { button, form, group } from './booking.style';
+import { doctors } from '../../constants/formInitialValues';
+import useAppointmentContext from '../../hooks/useAppointment';
+import AlertMessage from '../../Components/snackbar/AlertMessage';
+import useLocalStorage from '../../hooks/local-storage';
 
 const theme = createTheme({
   components: {
@@ -27,192 +26,165 @@ const theme = createTheme({
       }
     }
   }
-})
-
-const doctors = [
-  { id: 1, name: 'Dr. Calvin Carlo'},
-  { id: 2, name: 'Dr. Cristino Murphy'},
-  { id: 3, name: 'Dr. Alia Reddy'},
-  { id: 4, name: 'Dr. Toni Kovar'},
-  { id: 5, name: 'Dr. Jessica McFarlane'},
-  { id: 6, name: 'Dr. Bertha Magers'},
-  { id: 7, name: 'Dr. Elsie Sherman'}
-]
-
+});
 
 const Booking = () => {
-  const [isBooked, setIsBooked] = useState(false)
-  const [addAppointments, setAddAppointments] = useState<Appointment>(appointmentInitialData);
+  const {state, addAppointment, setAppointment } = useAppointmentContext();
+  const [user] =useLocalStorage("user","");
+  const [isBooked, setIsBooked] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<{ name?: string; value: unknown }>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    if (!name) return;
-
-    setAddAppointments(prev => ({
-      ...prev,
-      [name]: name === 'age' ? Number(value) : value
-    }));
+    const newAppointment ={...state.appointment,[name]:name==="age"?Number(value):value, patientId:user.id};
+    setAppointment(newAppointment);
   };
 
-  const handleGenderChange = (e: SelectChangeEvent) => {
+  const handleSelectChange = (e: SelectChangeEvent<string>) => {
     const { name, value } = e.target;
-    if (!name) return;
-
-    setAddAppointments(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    const newAppointment ={...state.appointment,[name]:value};
+    setAppointment(newAppointment);
   };
 
-  const handleDoctorChange = (e: SelectChangeEvent) => {
+  const handleDoctorChange = (e: SelectChangeEvent<string>) => {
     const chosenDoctor = doctors.find(doc => doc.name === e.target.value);
-    setAddAppointments(prev => ({
-      ...prev,
+    const newAppointment={
+      ...state.appointment,
       doctorId: chosenDoctor?.id || 0,
       doctorName: chosenDoctor?.name || '',
-    }));
+    };
+    setAppointment(newAppointment);
   };
 
   const handleBooking = () => {
     if (
-      !addAppointments.patientName.trim() ||
-      !addAppointments.age ||
-      !addAppointments.doctorName.trim() ||
-      !addAppointments.contact.trim() ||
-      !addAppointments.date.trim() ||
-      !addAppointments.time.trim()
+      !state.appointment.patientName.trim() ||
+      !state.appointment.age ||
+      !state.appointment.doctorName.trim() ||
+      !state.appointment.contact.trim() ||
+      !state.appointment.date.trim() ||
+      !state.appointment.time.trim()
     ) {
       alert('Please fill all required fields');
       return;
     }
-
+    console.log('Booking appointment:', state.appointment);
+    addAppointment(state.appointment);
     setIsBooked(true);
   };
 
   return (
     <ThemeProvider theme={theme}>
-      <div>
-          <Box sx={form}>
-            <span>Book an Appointment</span>
-            <TextField
-              fullWidth
-              label='Patient Name'
-              required
-              margin='normal'
-              name='patientName'
-              value={addAppointments.patientName}
-              onChange={handleChange}
-            />
-            <Box sx={group}>
-              <TextField
-                fullWidth
-                label='Age'
-                required
-                margin='normal'
-                name='age'
-                type="number"
-                value={addAppointments.age}
-                onChange={handleChange}
-              />
-              <FormControl fullWidth required margin='normal'>
-                <InputLabel>Doctor</InputLabel>
-                <Select
-                  name='doctorName'
-                  value={addAppointments.doctorName}
-                  onChange={handleDoctorChange}
-                >
-                  {doctors.map(doc => (
-                    <MenuItem key={doc.id} value={doc.name}>
-                      {doc.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <TextField
-                fullWidth
-                label='Contact'
-                required
-                margin='normal'
-                name='contact'
-                value={addAppointments.contact}
-                onChange={handleChange}
-              />
-            </Box>
-            <Box sx={group}>
-              <FormControl fullWidth required margin='normal'>
-                <InputLabel>Gender</InputLabel>
-                <Select
-                  name='gender'
-                  value={addAppointments.gender}
-                  onChange={handleGenderChange}
-                >
-                  <MenuItem value='Male'>Male</MenuItem>
-                  <MenuItem value='Female'>Female</MenuItem>
-                </Select>
-              </FormControl>
-              <TextField
-                fullWidth
-                label='Date'
-                required
-                margin='normal'
-                type='date'
-                InputLabelProps={{ shrink: true }}
-                name='date'
-                value={addAppointments.date}
-                onChange={handleChange}
-              />
-              <TextField
-                fullWidth
-                label='Time'
-                required
-                margin='normal'
-                type='time'
-                InputLabelProps={{ shrink: true }}
-                name='time'
-                value={addAppointments.time}
-                onChange={handleChange}
-              />
-            </Box>
-            <TextField
-              fullWidth
-              label='Symptoms'
-              margin='normal'
-              multiline
-              rows={4}
-              name='symptoms'
-              value={addAppointments.symptoms}
-              onChange={handleChange}
-            />
-            <Box sx={group}>
-              <Button
-                variant='contained'
-                sx={button}
-                onClick={handleBooking}
-              >
-                Book an Appointment
-              </Button>
-            </Box>
-          </Box>
-        {isBooked && (
-          <Snackbar
-            open={isBooked}
-            autoHideDuration={3000}
-            onClose={() => setIsBooked(false)}
-            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          >
-            <Alert
-              onClose={() => setIsBooked(false)}
-              severity='success'
-              variant='filled'
-              icon={<CheckCircleIcon fontSize='inherit' />}
+      <Box sx={form}>
+        <span>Book an Appointment</span>
+        <TextField
+          fullWidth
+          label='Patient Name'
+          required
+          margin='normal'
+          name='patientName'
+          value={state.appointment.patientName}
+          onChange={handleChange}
+        />
+        <Box sx={group}>
+          <TextField
+            fullWidth
+            label='Age'
+            required
+            margin='normal'
+            name='age'
+            type="number"
+            value={state.appointment.age}
+            onChange={handleChange}
+          />
+          <FormControl fullWidth required margin='normal'>
+            <InputLabel>Doctor</InputLabel>
+            <Select
+              name='doctorName'
+              value={state.appointment.doctorName}
+              onChange={handleDoctorChange}
             >
-              Booking Successful!
-            </Alert>
-          </Snackbar>
-        )}
-      </div>
+              {doctors.map(doc => (
+                <MenuItem key={doc.id} value={doc.name}>
+                  {doc.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <TextField
+            fullWidth
+            label='Contact'
+            required
+            margin='normal'
+            name='contact'
+            value={state.appointment.contact}
+            onChange={handleChange}
+          />
+        </Box>
+        <Box sx={group}>
+          <FormControl fullWidth required margin='normal'>
+            <InputLabel>Gender</InputLabel>
+            <Select
+              name='gender'
+              value={state.appointment.gender}
+              onChange={handleSelectChange} // Use the new handler
+            >
+              <MenuItem value='Male'>Male</MenuItem>
+              <MenuItem value='Female'>Female</MenuItem>
+            </Select>
+          </FormControl>
+          <TextField
+            fullWidth
+            label='Date'
+            required
+            margin='normal'
+            type='date'
+            InputLabelProps={{ shrink: true }}
+            name='date'
+            value={state.appointment.date}
+            onChange={handleChange}
+          />
+          <TextField
+            fullWidth
+            label="Time"
+            required
+            margin="normal"
+            type="time"
+            InputLabelProps={{ shrink: true }}
+            inputProps={{
+              min: "09:00",
+              max: "17:00",
+              step: 900, 
+            }}
+            name="time"
+            value={state.appointment.time}
+            onChange={handleChange}
+          />
+        </Box>
+        <TextField
+          fullWidth
+          label='Symptoms'
+          margin='normal'
+          multiline
+          rows={4}
+          name='symptoms'
+          value={state.appointment.symptoms}
+          onChange={handleChange}
+        />
+        <Box sx={group}>
+          <Button
+            variant='contained'
+            sx={button}
+            onClick={handleBooking}
+          >
+            Book an Appointment
+          </Button>
+        </Box>
+      </Box>
+      {isBooked && (
+        <AlertMessage isBooked={isBooked} setIsBooked={setIsBooked} message='Booking Successful'/>
+      )}
     </ThemeProvider>
-  )
-}
+  );
+};
 
 export default Booking;

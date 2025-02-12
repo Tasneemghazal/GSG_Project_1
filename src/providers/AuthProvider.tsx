@@ -13,7 +13,7 @@ interface IProps {
     children: React.ReactNode;
 }
 export const AuthContext = createContext<IStateContext>({
-    user: { email: "", password: "", phone: "", userType: UserType.Patient }, 
+    user: { id:"",email: "", password: "", phone: "", userType: UserType.Patient }, 
     login: () => null,
     register: () => false,
     logout:()=>null,

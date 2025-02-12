@@ -9,7 +9,7 @@ export enum ModalMode {
 }
 export interface Appointment {
     id: number;
-    patientId: number;
+    patientId: string;
     patientName: string;
     doctorName: string;
     doctorId: number;
@@ -22,6 +22,21 @@ export interface Appointment {
     status: Status;
     note?: string;
 }
+// export interface Appointment {
+//   id:number;
+//   patientName: string;
+//   age: number;
+//   doctorId: number;
+//   doctorName: string;
+//   contact: string;
+//   gender: string;
+//   date: string;
+//   time: string;
+//   symptoms: string;
+//   status: Status;
+//   note?: string;
+
+// }
 export interface  Makeapponmentform  {
     name: string,
     email: string,
@@ -41,6 +56,7 @@ export interface LoggedUser {
 }
 
 export interface User extends LoggedUser {
+  id: string;
   phone: string;
   userType: UserType
 }
@@ -52,8 +68,8 @@ export interface User extends LoggedUser {
 export const initialAppointments: Appointment[] = [
   {
     id: 1,
+    patientId:"12",
     patientName: "John Doe",
-    patientId: 1,
     doctorName: "John Doe",
     doctorId: 1,
     age: 29,
@@ -66,8 +82,8 @@ export const initialAppointments: Appointment[] = [
   },
   {
     id: 2,
+    patientId:"13",
     patientName: "John Doe",
-    patientId: 1,
     doctorName: "John Doe",
     doctorId: 1,
     age: 29,
