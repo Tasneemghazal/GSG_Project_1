@@ -25,13 +25,9 @@ const Register = () => {
     if(exist){
       alert("user already registered")
     }
-      else{
-        if (formData.userType === "patient") {
-          navigate("/Patient");
-        } else {
-          navigate("/Doctor");
-        }
-      }
+    else{
+      navigate('/login');
+    }
   };
 
   const handelChange = (
@@ -40,6 +36,7 @@ const Register = () => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
+      id: Date.now().toString(),
       [name]: value,
     }));
     setUserExists(false);
