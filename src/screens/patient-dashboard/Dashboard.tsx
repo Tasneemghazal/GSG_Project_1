@@ -9,7 +9,6 @@ import Calender from '../../Components/PatiantComponent/Calender/Calender';
 import HealthRecordComponent from '../../Components/PatiantComponent/HealthRecord/HealthReacord';
 import UppCommingAppointments from '../../Components/PatiantComponent/UppCommingAppointment/UppComingAppointment';
 import Report from '../../Components/PatiantComponent/Report/Report';
-import { useAppointmentContext } from '../../providers/AppointmentProvider';
 
 
 const healthData = [
@@ -22,7 +21,6 @@ const healthData = [
 ];
 
 const Dashboard = () => {
-  const { state } = useAppointmentContext();
   return (
     <Container>
       <Box sx={box()}>

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './booking.css';
 import Button from '@mui/material/Button';
 import {
-  Alert,
   Box,
   createTheme,
   FormControl,
@@ -10,15 +9,14 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
-  Snackbar,
   TextField,
   ThemeProvider
 } from '@mui/material';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { button, form, group } from './booking.style';
-import { Appointment } from '../../types/@types';
-import { appointmentInitialData } from '../../constants/formInitialValues';
-import { useAppointmentContext } from '../../providers/AppointmentProvider';
+import { doctors } from '../../constants/formInitialValues';
+import useAppointmentContext from '../../hooks/useAppointment';
+import AlertMessage from '../../Components/snackbar/AlertMessage';
+import useLocalStorage from '../../hooks/local-storage';
 
 const theme = createTheme({
   components: {
@@ -30,61 +28,47 @@ const theme = createTheme({
   }
 });
 
-const doctors = [
-  { id: 1, name: 'Dr. Calvin Carlo' },
-  { id: 2, name: 'Dr. Cristino Murphy' },
-  { id: 3, name: 'Dr. Alia Reddy' },
-  { id: 4, name: 'Dr. Toni Kovar' },
-  { id: 5, name: 'Dr. Jessica McFarlane' },
-  { id: 6, name: 'Dr. Bertha Magers' },
-  { id: 7, name: 'Dr. Elsie Sherman' }
-];
-
 const Booking = () => {
-  const { addAppointment } = useAppointmentContext();
+  const {state, addAppointment, setAppointment } = useAppointmentContext();
+  const [user] =useLocalStorage("user","");
   const [isBooked, setIsBooked] = useState(false);
-  const [addAppointments, setAddAppointments] = useState<Appointment>(appointmentInitialData);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setAddAppointments({
-      ...addAppointments,
-      [name]: name === 'age' ? Number(value) : value
-    });
+    const newAppointment ={...state.appointment,[name]:name==="age"?Number(value):value, patientId:user.id};
+    setAppointment(newAppointment);
   };
 
   const handleSelectChange = (e: SelectChangeEvent<string>) => {
     const { name, value } = e.target;
-    setAddAppointments((prev) => ({
-      ...prev,
-      [name]: value
-    }));
+    const newAppointment ={...state.appointment,[name]:value};
+    setAppointment(newAppointment);
   };
 
   const handleDoctorChange = (e: SelectChangeEvent<string>) => {
     const chosenDoctor = doctors.find(doc => doc.name === e.target.value);
-    setAddAppointments(prev => ({
-      ...prev,
+    const newAppointment={
+      ...state.appointment,
       doctorId: chosenDoctor?.id || 0,
       doctorName: chosenDoctor?.name || '',
-    }));
+    };
+    setAppointment(newAppointment);
   };
 
   const handleBooking = () => {
     if (
-      !addAppointments.patientName.trim() ||
-      !addAppointments.age ||
-      !addAppointments.doctorName.trim() ||
-      !addAppointments.contact.trim() ||
-      !addAppointments.date.trim() ||
-      !addAppointments.time.trim()
+      !state.appointment.patientName.trim() ||
+      !state.appointment.age ||
+      !state.appointment.doctorName.trim() ||
+      !state.appointment.contact.trim() ||
+      !state.appointment.date.trim() ||
+      !state.appointment.time.trim()
     ) {
       alert('Please fill all required fields');
       return;
     }
-  
-    console.log('Booking appointment:', addAppointments);
-    addAppointment(addAppointments); // Ensure this is called correctly
+    console.log('Booking appointment:', state.appointment);
+    addAppointment(state.appointment);
     setIsBooked(true);
   };
 
@@ -98,7 +82,7 @@ const Booking = () => {
           required
           margin='normal'
           name='patientName'
-          value={addAppointments.patientName}
+          value={state.appointment.patientName}
           onChange={handleChange}
         />
         <Box sx={group}>
@@ -109,14 +93,14 @@ const Booking = () => {
             margin='normal'
             name='age'
             type="number"
-            value={addAppointments.age}
+            value={state.appointment.age}
             onChange={handleChange}
           />
           <FormControl fullWidth required margin='normal'>
             <InputLabel>Doctor</InputLabel>
             <Select
               name='doctorName'
-              value={addAppointments.doctorName}
+              value={state.appointment.doctorName}
               onChange={handleDoctorChange}
             >
               {doctors.map(doc => (
@@ -132,7 +116,7 @@ const Booking = () => {
             required
             margin='normal'
             name='contact'
-            value={addAppointments.contact}
+            value={state.appointment.contact}
             onChange={handleChange}
           />
         </Box>
@@ -141,7 +125,7 @@ const Booking = () => {
             <InputLabel>Gender</InputLabel>
             <Select
               name='gender'
-              value={addAppointments.gender}
+              value={state.appointment.gender}
               onChange={handleSelectChange} // Use the new handler
             >
               <MenuItem value='Male'>Male</MenuItem>
@@ -156,7 +140,7 @@ const Booking = () => {
             type='date'
             InputLabelProps={{ shrink: true }}
             name='date'
-            value={addAppointments.date}
+            value={state.appointment.date}
             onChange={handleChange}
           />
           <TextField
@@ -172,7 +156,7 @@ const Booking = () => {
               step: 900, 
             }}
             name="time"
-            value={addAppointments.time}
+            value={state.appointment.time}
             onChange={handleChange}
           />
         </Box>
@@ -183,7 +167,7 @@ const Booking = () => {
           multiline
           rows={4}
           name='symptoms'
-          value={addAppointments.symptoms}
+          value={state.appointment.symptoms}
           onChange={handleChange}
         />
         <Box sx={group}>
@@ -197,21 +181,7 @@ const Booking = () => {
         </Box>
       </Box>
       {isBooked && (
-        <Snackbar
-          open={isBooked}
-          autoHideDuration={3000}
-          onClose={() => setIsBooked(false)}
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        >
-          <Alert
-            onClose={() => setIsBooked(false)}
-            severity='success'
-            variant='filled'
-            icon={<CheckCircleIcon fontSize='inherit' />}
-          >
-            Booking Successful!
-          </Alert>
-        </Snackbar>
+        <AlertMessage isBooked={isBooked} setIsBooked={setIsBooked} message='Booking Successful'/>
       )}
     </ThemeProvider>
   );

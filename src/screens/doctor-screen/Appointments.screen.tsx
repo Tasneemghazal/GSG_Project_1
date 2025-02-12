@@ -4,8 +4,8 @@ import { SearchOutlined } from "@mui/icons-material";
 import AppointmentsTable from "../../Components/doctorComponents/appointments/AppointmentsTable";
 import { inputSearch } from "./doctor.style";
 import useModal from "../../hooks/useModal";
-import { useAppointmentContext } from "../../providers/AppointmentProvider"; // Import context
 import CustomModal from "../../Components/custom-modal/CustomModal";
+import useAppointmentContext from "../../hooks/useAppointment";
 
 const Appointments = () => {
   const { state } = useAppointmentContext(); 

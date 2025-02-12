@@ -1,19 +1,22 @@
 import { Appointment } from '../types/@types';
 
-interface AppointmentState {
+export interface AppointmentState {
+  appointment: Appointment;
   appointments: Appointment[];
 }
 
 type AppointmentAction =
   | { type: 'ADD_APPOINTMENT'; payload: Appointment }
-  | { type: 'CLEAR_APPOINTMENTS' };
+  | { type: 'CLEAR_APPOINTMENTS' }|{type: 'SET_APPOINTMENT'; payload: Appointment};
 
-  const initialState: AppointmentState = {
-    appointments: [],
-  };
   
-  const appointmentReducer = (state = initialState, action: AppointmentAction): AppointmentState => {
+  const appointmentReducer = (state: AppointmentState, action: AppointmentAction): AppointmentState => {
     switch (action.type) {
+      case 'SET_APPOINTMENT':
+      return {
+        ...state,
+        appointment: action.payload,
+      };
       case 'ADD_APPOINTMENT':
         return {
           ...state,

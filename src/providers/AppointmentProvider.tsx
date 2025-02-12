@@ -1,43 +1,35 @@
-import React, { createContext, useReducer, ReactNode, useContext, useEffect } from 'react';
+import React, { createContext, useReducer, ReactNode, useEffect } from 'react';
 import { Appointment } from '../types/@types';
-import appointmentReducer from '../state/BookingReduser';
-
-interface AppointmentState {
-  appointments: Appointment[];
-}
+import appointmentReducer, { AppointmentState } from '../state/appointmentReducer';
+import useLocalStorage from '../hooks/local-storage';
+import { appointmentInitialData } from '../constants/formInitialValues';
 
 interface AppointmentContextProps {
   state: AppointmentState;
   addAppointment: (appointment: Appointment) => void;
+  setAppointment: (appointment: Appointment) => void;
 }
 
-const AppointmentContext = createContext<AppointmentContextProps | undefined>(undefined);
+export const AppointmentContext = createContext<AppointmentContextProps | undefined>(undefined);
 
-const AppointmentProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [state, dispatch] = useReducer(appointmentReducer, { appointments: [] });
+export const AppointmentProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [storedAppointments, setStoredAppointments]= useLocalStorage("appointments",[]);
+  const [state, dispatch] = useReducer(appointmentReducer, { appointments: storedAppointments, appointment: appointmentInitialData });
 
-  const addAppointment = (appointment:Appointment) => {
-    console.log('Adding appointment:', appointment);
-    dispatch({ type: 'ADD_APPOINTMENT', payload: appointment });
+  const addAppointment = (newAppointment:Appointment) => {
+    dispatch({ type: 'ADD_APPOINTMENT', payload: newAppointment });
+  };
+  const setAppointment = (newAppointment:Appointment) => {
+    dispatch({ type: 'SET_APPOINTMENT', payload: newAppointment });
   };
 
   useEffect(() => {
-    console.log('Updated appointments:', state.appointments);
-  }, [state.appointments]);
+    setStoredAppointments(state.appointments);
+  }, [state.appointments, setStoredAppointments]);
 
   return (
-    <AppointmentContext.Provider value={{ state, addAppointment }}>
+    <AppointmentContext.Provider value={{ state, addAppointment,setAppointment }}>
       {children}
     </AppointmentContext.Provider>
   );
 };
-
-const useAppointmentContext = () => {
-  const context = useContext(AppointmentContext);
-  if (!context) {
-    throw new Error('useAppointmentContext must be used within an AppointmentProvider');
-  }
-  return context;
-};
-
-export { AppointmentProvider, useAppointmentContext };
