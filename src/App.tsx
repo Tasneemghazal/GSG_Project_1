@@ -14,6 +14,8 @@ import Booking from "./screens/book-appointment/Booking.screen";
 import DoctorDashboard from "./screens/doctor-dashboard/DoctorDashboard";
 import Dashboard from "./screens/patient-dashboard/Dashboard";
 import { AppointmentProvider } from "./providers/AppointmentProvider";
+import ProtectedRoute from "./Components/protected-route/ProtectedRoute";
+import { UserType } from "./types/@types";
 const theme = createTheme();
 
 const App = () => {
@@ -23,7 +25,10 @@ const App = () => {
     { path: "/Register", element: <Register /> },
     {
       path: "/doctor",
-      element: <Doctor />,
+      element: 
+      <ProtectedRoute userType={UserType.Doctor}>
+        <Doctor />
+      </ProtectedRoute>,
       children: [
         {index: true, element: <DoctorDashboard /> },
         { path: "dashboard", element: <DoctorDashboard /> },
@@ -32,13 +37,16 @@ const App = () => {
     },
     { 
       path: "/patient", 
-      element: <Patient />,
+      element: 
+      <ProtectedRoute userType={UserType.Patient}>
+        <Patient />
+      </ProtectedRoute>,
       children: [
       {index:true, element: <Dashboard/> },
       {path: "dashboard", element: <Dashboard/>},
       {path:"booking", element:<Booking/>},
       ] 
-    },
+    }
   ];
   
   const browserRouter = createBrowserRouter(routes);
@@ -53,4 +61,3 @@ const App = () => {
 };
 
 export default App;
-
