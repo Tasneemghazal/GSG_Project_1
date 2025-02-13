@@ -14,8 +14,8 @@ interface IProps {
 
 const initialState: IState = {
     open: false,
+    appointId:"",
     symptom: "",
-    note: "",
     mode: ModalMode.SYMPTOM,
   };
   

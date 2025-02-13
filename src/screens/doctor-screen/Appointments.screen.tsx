@@ -24,12 +24,8 @@ const Appointments = () => {
     dispatch({ type: "CLOSE_MODAL" });
   };
 
-  const openNoteModal = () => {
-    dispatch({ type: "OPEN_NOTE_MODAL" });
-  };
-
-  const addNote = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: "ADD_NOTE", payload: event.target.value });
+  const openNoteModal = (id:string) => {
+    dispatch({ type: "OPEN_NOTE_MODAL", payload: id });
   };
 
   return (
@@ -52,10 +48,9 @@ const Appointments = () => {
       <CustomModal 
         open={modalState.open} 
         handleClose={handleClose} 
-        selectedSymptom={modalState.symptom} 
-        addNote={addNote} 
-        mode={modalState.mode} 
-        note={modalState.note} 
+        selectedSymptom={modalState.symptom}  
+        mode={modalState.mode}
+        appointmentId={modalState.appointId}
       />
     </Box>
   );

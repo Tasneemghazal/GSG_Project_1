@@ -8,8 +8,7 @@ interface IProps {
   handleClose: () => void;
   selectedSymptom: string;
   mode: string;
-  note: string;
-  addNote: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  appointmentId: string;
 }
 
 const CustomModal = ({
@@ -17,8 +16,7 @@ const CustomModal = ({
   handleClose,
   selectedSymptom,
   mode,
-  addNote,
-  note,
+  appointmentId,
 }: IProps) => {
   return (
     <Modal open={open} onClose={handleClose} aria-labelledby="modal-title">
@@ -28,7 +26,7 @@ const CustomModal = ({
           <Typography sx={symptom}>{selectedSymptom}</Typography>
         </Box>
       ) : (
-        <AddNote note={note} addNote={addNote} handleClose={handleClose}/>
+        <AddNote handleClose={handleClose} appointmentId={appointmentId}/>
       )}
     </Modal>
   );

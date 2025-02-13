@@ -1,30 +1,37 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { modal } from "../../custom-modal/custom-modal.style";
 import { Title } from "./AddNote.style";
-
+import { forwardRef, useState } from "react";
+import useAppointmentContext from "../../../hooks/useAppointment";
 interface NoteModalProps {
-  note: string;
-  addNote: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  appointmentId: string;
   handleClose: () => void;
 }
+const AddNote = forwardRef<HTMLDivElement, NoteModalProps>(({ handleClose, appointmentId }, ref) => {
+  const [note, setNote] = useState("");
+  const { addNote } = useAppointmentContext();
 
-const AddNote = ({ note, addNote, handleClose }: NoteModalProps) => {
+  const handleSubmit = () => {
+    addNote(note, appointmentId);
+    handleClose();
+  };
+
   return (
-    <Box sx={modal}>
+    <Box sx={modal} ref={ref} tabIndex={0}>
       <Typography sx={Title}>Add Note:</Typography>
       <TextField
         fullWidth
         variant="outlined"
         value={note}
-        onChange={addNote}
+        onChange={(e) => setNote(e.target.value)}
         placeholder="Enter note here..."
         sx={{ marginBottom: 2 }}
       />
-      <Button variant="contained" onClick={handleClose}>
+      <Button variant="contained" onClick={handleSubmit}>
         Save
       </Button>
     </Box>
   );
-};
+});
 
 export default AddNote;
