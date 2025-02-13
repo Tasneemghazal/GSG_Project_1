@@ -8,11 +8,11 @@ export enum ModalMode {
   NOTE="NOTE",
 }
 export interface Appointment {
-    id: number;
+    id: string;
     patientId: string;
     patientName: string;
     doctorName: string;
-    doctorId: number;
+    doctorId: string;
     date: string;
     time: string;
     age: number;
@@ -57,6 +57,7 @@ export interface LoggedUser {
 
 export interface User extends LoggedUser {
   id: string;
+  name: string;
   phone: string;
   userType: UserType
 }
@@ -67,11 +68,11 @@ export interface User extends LoggedUser {
 
 export const initialAppointments: Appointment[] = [
   {
-    id: 1,
+    id: "1",
     patientId:"12",
     patientName: "John Doe",
     doctorName: "John Doe",
-    doctorId: 1,
+    doctorId: "1",
     age: 29,
     date:"",
     time:"",
@@ -81,11 +82,11 @@ export const initialAppointments: Appointment[] = [
     status: Status.Pending,
   },
   {
-    id: 2,
+    id: "2",
     patientId:"13",
     patientName: "John Doe",
     doctorName: "John Doe",
-    doctorId: 1,
+    doctorId: "1",
     age: 29,
     date:"",
     time:"",

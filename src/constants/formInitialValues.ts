@@ -12,6 +12,7 @@ export const loginFormErrorInitialValues = {
 
 export const RegisterInitialData: User = {
   id:"",
+  name: "",
   email: "",
   password: "",
   phone: "",

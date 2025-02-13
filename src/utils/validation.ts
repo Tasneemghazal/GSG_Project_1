@@ -7,6 +7,7 @@ export interface LoginFormErrors {
 
 export interface RegisterFormErrors extends LoginFormErrors {
     phone?: string;
+    name?: string;
 }
 
 
@@ -27,6 +28,10 @@ export const validateLoginForm = (data: LoggedUser): LoginFormErrors => {
 
 export const validateRegisterForm = (data:User) => {
     const errors: RegisterFormErrors = {};
+    
+    if (data.name.length < 4) {
+      errors.password = "Name must be at least 4 characters.";
+    }
 
     if (!data.email.includes("@")) {
       errors.email = "Invalid email address.";

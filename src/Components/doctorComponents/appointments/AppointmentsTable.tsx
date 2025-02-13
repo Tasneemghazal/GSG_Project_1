@@ -1,16 +1,17 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Stack } from '@mui/material';
-import { Appointment, Status } from '../../../types/@types';
+import { Appointment, Status, UserType } from '../../../types/@types';
 import { button, table, tableContainer } from './appointmentsTable.style';
 
 interface IProps {
   appointments: Appointment[];
+  userType: UserType;
   showSymptom: (symptom: string) => void;
-  openNoteModal: () => void;
-  handleStatusChange: (id: number, newStatus: Status) => void;
+  openNoteModal?: () => void;
+  handleStatusChange: (id: string, newStatus: Status) => void;
 }
 
-const AppointmentsTable: React.FC<IProps> = ({ appointments, showSymptom, openNoteModal, handleStatusChange }) => {
+const AppointmentsTable: React.FC<IProps> = ({ appointments, userType, showSymptom, openNoteModal, handleStatusChange }) => {
   return (
     <TableContainer component={Paper} sx={tableContainer}>
       <Table sx={table}>
@@ -21,7 +22,7 @@ const AppointmentsTable: React.FC<IProps> = ({ appointments, showSymptom, openNo
             <TableCell align="right">Gender</TableCell>
             <TableCell align="right">Contact</TableCell>
             <TableCell align="right">Symptoms</TableCell>
-            <TableCell align="center">Action</TableCell>
+            {userType === UserType.Doctor && <TableCell align="center">Action</TableCell>}
             <TableCell align="center">Status</TableCell>
           </TableRow>
         </TableHead>
@@ -38,38 +39,55 @@ const AppointmentsTable: React.FC<IProps> = ({ appointments, showSymptom, openNo
                     Show
                   </Button>
                 </TableCell>
-                <TableCell align="right">
-                  <Button variant="outlined" sx={button} onClick={openNoteModal}>
-                    Add note
-                  </Button>
-                </TableCell>
+                
+                {userType === UserType.Doctor && (
+                  <TableCell align="right">
+                    <Button variant="outlined" sx={button} onClick={openNoteModal}>
+                      Add Note
+                    </Button>
+                  </TableCell>
+                )}
+
                 <TableCell align="center">
-                  <Stack direction="row" spacing={1} justifyContent="center">
-                    {[Status.Pending, Status.Confirmed, Status.Completed].map((status) => (
-                      <Button
-                        key={status}
-                        variant={appointment.status === status ? 'contained' : 'outlined'}
-                        color={
-                          status === Status.Pending ? 'error' : status === Status.Confirmed ? 'primary' : 'success'
-                        }
-                        sx={button}
-                        onClick={() => handleStatusChange(appointment.id, status)}
-                      >
-                        {status}
-                      </Button>
-                    ))}
-                  </Stack>
+                  {userType === UserType.Doctor ? (
+                    <Stack direction="row" spacing={1} justifyContent="center">
+                      {[Status.Pending, Status.Confirmed, Status.Completed].map((status) => (
+                        <Button
+                          key={status}
+                          variant={appointment.status === status ? 'contained' : 'outlined'}
+                          color={
+                            status === Status.Pending ? 'error' : status === Status.Confirmed ? 'primary' : 'success'
+                          }
+                          sx={button}
+                          onClick={() => handleStatusChange(appointment.id, status)}
+                        >
+                          {status}
+                        </Button>
+                      ))}
+                    </Stack>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      color={
+                        appointment.status === Status.Pending ? 'error' :
+                        appointment.status === Status.Confirmed ? 'primary' :
+                        'success'
+                      }
+                      sx={button}
+                    >
+                      {appointment.status}
+                    </Button>
+                  )}
                 </TableCell>
               </TableRow>
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={7} align="center">
+              <TableCell colSpan={userType === UserType.Doctor ? 7 : 6} align="center">
                 No appointments available
               </TableCell>
             </TableRow>
-          )
-          }
+          )}
         </TableBody>
       </Table>
     </TableContainer>
