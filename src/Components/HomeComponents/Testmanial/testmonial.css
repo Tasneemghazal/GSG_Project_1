@@ -1,0 +1,109 @@
+.testimonial {
+  background: rgb(2,0,36);
+  background: linear-gradient(9deg, rgba(2,0,36,1) 0%, rgb(1, 34, 98) 35%, rgb(222, 227, 228) 100%);
+  padding: 20px;
+}
+.testimonial h2 {
+  text-align: center;
+  color: white;
+  font-size: 40px;
+  font-weight: 800;
+}
+.testimonial .container .testimonial-card {
+  width: 100%;
+  display: flex;
+  gap: 50px;
+}
+.testimonial .container .img {
+  width: 45%;
+  height: 100%;
+}
+.testimonial .container .img img {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+}
+.testimonial .container .content {
+  width: 50%;
+  padding: 20px;
+}
+.testimonial .swiper {
+  width: 100%;
+  height: 70%;
+}
+.testimonial .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff;
+}
+.testimonial .swiper-slide .user {
+  font-size: 18px;
+  padding: 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.testimonial .swiper-slide {
+  background-color: #546b9b;
+}
+.testimonial .profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+.testimonial .profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+.testimonial .stars {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  gap: 5px;
+}
+.testimonial .stars svg {
+  fill: #ffd700; /* Gold color */
+}
+.testimonial .swiper-slide .user q {
+  display: block;
+  font-size: 20px; /* Adjust the font size as needed */
+  margin-bottom: 10px;
+  text-align: center;
+}
+@media (max-width: 900px) {
+  .testimonial .container img {
+      width: 30%;
+  }
+}
+@media (max-width: 700px) {
+  .testimonial .container .testimonial-card{
+    flex-direction: column;
+    gap: 10px;
+  }
+  .testimonial h2 {
+      font-size: 28px;
+  }
+  .testimonial .container .img img {
+      display: none;
+  }
+  .testimonial .container .content {
+      width: 100%;
+      margin: 10px auto;
+      height: 400px;
+  }
+  .testimonial .swiper {
+      width: 100%;
+  }
+}

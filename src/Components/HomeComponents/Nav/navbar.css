@@ -1,0 +1,173 @@
+body {
+    margin: 0; /* Ensure there's no margin on the body */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+  }
+  .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: white;
+    z-index: 1000;
+  }
+  .white{
+     color: #d8e9fb !important;
+  }
+  .nav {
+   display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    background-color: #fff; /* Add a default background color */
+  }
+  
+  .nav.background {
+    background-color: #002570;
+  }
+  
+  .colom {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+  }
+  .nav .logo {
+    height: 100%;
+  }
+  .nav .logo a{
+    height: 100%;
+  }
+  .nav .logo img{
+    width: 200px;
+    height: 70px;
+
+  }
+  .nav .nav-menu {
+    border-radius: 30px;
+    background-color: #d8e9fb;
+    display: flex; /* Ensure it's displayed as flex */
+    width: 50%;
+    padding: 10px;
+  }
+  
+  .nav .nav-menu ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 0 20px;
+    width: 100%;
+    justify-content: space-around;
+  }
+  
+  .nav .nav-menu ul li a {
+    text-decoration: none;
+    font-size: 25px;
+    text-transform: capitalize;
+    color: #002570;
+    transition: color 0.3s ease;
+  }
+  
+  .nav .nav-menu ul li a:hover {
+    color: #536faa;
+    background-color: aliceblue;
+  }
+  
+  .nav .nav-menu ul li:hover {
+    background-color: aliceblue;
+  }
+  
+  .nav .buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .nav .buttons .search {
+    border-radius: 50%;
+    background-color: #d8e9fb;
+    padding: 10px 10px 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav .buttons .search a {
+    text-decoration: none;
+    color: #002570;
+    font-size: 25px;
+    transition: color 0.3s ease;
+  }
+  
+  .nav .buttons .search:hover {
+    background-color: #002570;
+  }
+  
+  .nav .buttons .search a:hover {
+    color: aliceblue;
+  }
+  
+  .nav .buttons .book {
+    border-radius: 30px;
+    background-color: #002570;
+    padding: 10px 10px;
+    cursor: pointer;
+    border: 1px solid #d8e9fb;
+
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav .buttons .book:hover {
+    background-color: #007eff;
+  }
+  
+  .nav .buttons .book a {
+    text-decoration: none;
+    color: #d8e9fb;
+    font-size: 25px;
+    transition: color 0.3s ease;
+  }
+  
+  .nav .menu {
+    display: none;
+  }
+  
+  @media (max-width: 998px) {
+    .nav .buttons .search {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 878px) {
+    .nav .buttons .book {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 671px) {
+    .nav .menu {
+      display: block;
+      margin: 20px;
+      color: #002570;
+      padding: 10px 20px;
+    }
+    .nav .nav-menu {
+      display: none;
+    }
+    .nav-menu.show {
+      display: flex;
+      width: 100%;
+      border-radius: 5px;
+    }
+    .nav-menu.show ul {
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      padding: 10px;
+      margin: 0;
+    }
+    .nav-menu.show ul li a {
+      color: #002570;
+      transition: color 0.3s ease;
+    }
+  }
+  
