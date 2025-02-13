@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './booking.css';
 import Button from '@mui/material/Button';
 import {
@@ -13,10 +13,11 @@ import {
   ThemeProvider
 } from '@mui/material';
 import { button, form, group } from './booking.style';
-import { doctors } from '../../constants/formInitialValues';
 import useAppointmentContext from '../../hooks/useAppointment';
 import AlertMessage from '../../Components/snackbar/AlertMessage';
 import useLocalStorage from '../../hooks/local-storage';
+import { User } from '../../types/@types';
+import { AuthContext } from '../../providers/AuthProvider';
 
 const theme = createTheme({
   components: {
@@ -30,12 +31,14 @@ const theme = createTheme({
 
 const Booking = () => {
   const {state, addAppointment, setAppointment } = useAppointmentContext();
-  const [user] =useLocalStorage("user","");
+  const {user} =useContext(AuthContext);
+  const [storedDoctors] =useLocalStorage("doctors",[]);
+  const doctors:User[]=storedDoctors;
   const [isBooked, setIsBooked] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    const newAppointment ={...state.appointment,[name]:name==="age"?Number(value):value, patientId:user.id};
+    const newAppointment ={...state.appointment,[name]:name==="age"?Number(value):value, patientId:user.id, id: Date.now().toString()};
     setAppointment(newAppointment);
   };
 
@@ -49,7 +52,7 @@ const Booking = () => {
     const chosenDoctor = doctors.find(doc => doc.name === e.target.value);
     const newAppointment={
       ...state.appointment,
-      doctorId: chosenDoctor?.id || 0,
+      doctorId: chosenDoctor?.id || '',
       doctorName: chosenDoctor?.name || '',
     };
     setAppointment(newAppointment);

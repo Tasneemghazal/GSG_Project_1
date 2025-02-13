@@ -47,6 +47,16 @@ const Register = () => {
       <div className="Register-box">
         <h2>Register</h2>
         <form onSubmit={handelSubmit}>
+        <div className="input-group">
+            <label>Name:</label>
+            <input
+              type="name"
+              name="name"
+              value={formData.name}
+              onChange={handelChange}
+            />
+            {error && <p className="error-message">{error.name}</p>}
+          </div>
           <div className="input-group">
             <label>Email:</label>
             <input

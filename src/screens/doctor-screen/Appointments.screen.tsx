@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Paper, Box, InputBase, IconButton } from "@mui/material";
 import { SearchOutlined } from "@mui/icons-material";
 import AppointmentsTable from "../../Components/doctorComponents/appointments/AppointmentsTable";
@@ -6,11 +6,15 @@ import { inputSearch } from "./doctor.style";
 import useModal from "../../hooks/useModal";
 import CustomModal from "../../Components/custom-modal/CustomModal";
 import useAppointmentContext from "../../hooks/useAppointment";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Appointments = () => {
-  const { state } = useAppointmentContext(); 
-  const appointments = state.appointments; 
+  const { state, getAppointmentsForDoctor} = useAppointmentContext(); 
+  const {user}= useContext(AuthContext);
   const { state: modalState, dispatch } = useModal();
+  useEffect(() => {
+    getAppointmentsForDoctor();
+  }, []); 
 
   const showSymptom = (symptom: string) => {
     dispatch({ type: "OPEN_MODAL", payload: symptom });
@@ -37,7 +41,8 @@ const Appointments = () => {
         </IconButton>
       </Paper>
       <AppointmentsTable
-        appointments={appointments} 
+        appointments={state.myAppointments} 
+        userType={user.userType}
         showSymptom={showSymptom}
         openNoteModal={openNoteModal}
         handleStatusChange={(id, newStatus) => {

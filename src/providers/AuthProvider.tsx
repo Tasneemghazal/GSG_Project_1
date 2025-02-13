@@ -1,6 +1,7 @@
 import React, { createContext} from "react";
-import { LoggedUser, User, UserType} from "../types/@types"
+import { LoggedUser, User} from "../types/@types"
 import useLocalStorage from "../hooks/local-storage";
+import { RegisterInitialData } from "../constants/formInitialValues";
 
 export interface IStateContext {
     user: User;
@@ -13,7 +14,7 @@ interface IProps {
     children: React.ReactNode;
 }
 export const AuthContext = createContext<IStateContext>({
-    user: { id:"",email: "", password: "", phone: "", userType: UserType.Patient }, 
+    user: RegisterInitialData, 
     login: () => null,
     register: () => false,
     logout:()=>null,

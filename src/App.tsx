@@ -45,6 +45,7 @@ const App = () => {
       {index:true, element: <Dashboard/> },
       {path: "dashboard", element: <Dashboard/>},
       {path:"booking", element:<Booking/>},
+      {path: "appointments", element: <AppointmentsScreen/>}
       ] 
     }
   ];
