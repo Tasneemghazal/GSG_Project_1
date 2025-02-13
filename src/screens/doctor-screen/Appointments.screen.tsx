@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Paper, Box, InputBase, IconButton } from "@mui/material";
 import { SearchOutlined } from "@mui/icons-material";
 import AppointmentsTable from "../../Components/doctorComponents/appointments/AppointmentsTable";
@@ -6,11 +6,11 @@ import { inputSearch } from "./doctor.style";
 import useModal from "../../hooks/useModal";
 import CustomModal from "../../Components/custom-modal/CustomModal";
 import useAppointmentContext from "../../hooks/useAppointment";
-import useLocalStorage from "../../hooks/local-storage";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Appointments = () => {
   const { state, getAppointmentsForDoctor} = useAppointmentContext(); 
-  const [user] = useLocalStorage("user","");
+  const {user}= useContext(AuthContext);
   const { state: modalState, dispatch } = useModal();
   useEffect(() => {
     getAppointmentsForDoctor();

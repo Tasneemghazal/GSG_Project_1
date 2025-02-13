@@ -1,8 +1,9 @@
-import React, { createContext, useReducer, ReactNode, useEffect } from 'react';
+import React, { createContext, useReducer, ReactNode, useEffect, useContext } from 'react';
 import { Appointment } from '../types/@types';
 import appointmentReducer, { AppointmentState } from '../state/appointmentReducer';
 import useLocalStorage from '../hooks/local-storage';
 import { appointmentInitialData } from '../constants/formInitialValues';
+import { AuthContext } from './AuthProvider';
 
 interface AppointmentContextProps {
   state: AppointmentState;
@@ -15,7 +16,7 @@ export const AppointmentContext = createContext<AppointmentContextProps | undefi
 
 export const AppointmentProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [storedAppointments, setStoredAppointments]= useLocalStorage("appointments",[]);
-  const [user]= useLocalStorage("user","");
+  const {user}= useContext(AuthContext);
   const [state, dispatch] = useReducer(appointmentReducer, { appointments: storedAppointments, appointment: appointmentInitialData, myAppointments:storedAppointments });
 
   const addAppointment = (newAppointment:Appointment) => {

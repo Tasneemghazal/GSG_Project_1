@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './booking.css';
 import Button from '@mui/material/Button';
 import {
@@ -17,6 +17,7 @@ import useAppointmentContext from '../../hooks/useAppointment';
 import AlertMessage from '../../Components/snackbar/AlertMessage';
 import useLocalStorage from '../../hooks/local-storage';
 import { User } from '../../types/@types';
+import { AuthContext } from '../../providers/AuthProvider';
 
 const theme = createTheme({
   components: {
@@ -30,8 +31,7 @@ const theme = createTheme({
 
 const Booking = () => {
   const {state, addAppointment, setAppointment } = useAppointmentContext();
-  console.log(state.appointments)
-  const [user] =useLocalStorage("user","");
+  const {user} =useContext(AuthContext);
   const [storedDoctors] =useLocalStorage("doctors",[]);
   const doctors:User[]=storedDoctors;
   const [isBooked, setIsBooked] = useState(false);
