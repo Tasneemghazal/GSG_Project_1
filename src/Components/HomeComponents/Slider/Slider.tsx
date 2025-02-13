@@ -1,7 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "./slider.css";
-import backgroundimg from "../../../assets/Home_imgs/slider/doc.png";
-import slider2 from "../../../assets/Home_imgs/slider/slider2.jpg";
+import firstBackgroundImg from "../../../assets/Home_imgs/slider/virtual-3d-projection.jpg";
+import secBackgroundImg from "../../../assets/Home_imgs/slider/digital-composite-.jpg";
+import thirdBackgroundImg from "../../../assets/Home_imgs/slider/medical-banner-.jpg";
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -19,7 +20,7 @@ const Slider = () => {
        scrollbar={{ draggable: true }}
       className="mySwiper">
         <SwiperSlide>
-          <div className="slider" style={{ backgroundImage: `url(${backgroundimg})` }}>
+          <div className="slider" style={{ backgroundImage: `url(${firstBackgroundImg})` }}>
             <div className="text">
               <h1>Welcome to Our Healthcare System</h1>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -28,7 +29,7 @@ const Slider = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="slider" style={{ backgroundImage: `url(${slider2})` }}>
+          <div className="slider" style={{ backgroundImage: `url(${secBackgroundImg})` }}>
             <div className="text">
               <h1>Welcome to Our Healthcare System</h1>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -37,7 +38,7 @@ const Slider = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="slider" style={{ backgroundImage: `url(${backgroundimg})` }}>
+          <div className="slider" style={{ backgroundImage: `url(${thirdBackgroundImg})` }}>
             <div className="text">
               <h1>Welcome to Our Healthcare System</h1>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>

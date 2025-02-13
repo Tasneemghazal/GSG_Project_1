@@ -22,7 +22,6 @@ const About = () => {
             </div>
             <div className="card">
                 <div className="header flex">
-                    <a href="">Booking</a>
                     <h2> Appointments</h2>
                 </div>
                 <div className="img">
@@ -42,7 +41,6 @@ const About = () => {
                 </div>
                 <div className="content">
                     <p>Rapidly reinvent long-term impact collaboration.</p>
-                    <a href="">Booking</a>
                 </div>
             </div>
             </div>

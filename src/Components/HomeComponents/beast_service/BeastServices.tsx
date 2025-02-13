@@ -17,7 +17,7 @@ const BeastServices = () => {
       <div className="container">
         <div className="data">
           <h2>PROVIDES BEST SERVICE</h2>
-          <p>
+          <p className='contain'>
             Enthusiastically orchestrate competitive e-services whereas superior
             Conveniently disintermediate innovative solutions through impactfuls
             tailers without seamless markets network .
