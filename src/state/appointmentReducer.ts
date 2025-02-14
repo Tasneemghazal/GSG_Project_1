@@ -1,4 +1,4 @@
-import { Appointment, User, UserType } from "../types/@types";
+import { Appointment, Status, User, UserType } from "../types/@types";
 
 export interface AppointmentState {
   appointment: Appointment;
@@ -11,9 +11,11 @@ type AppointmentAction =
   | { type: "CLEAR_APPOINTMENTS" }
   | { type: "SET_APPOINTMENT"; payload: Appointment }
   | {
-      type: "GET_APPOINTMENTS";
-      payload: { appointments: Appointment[]; user: User };
-    }|{type: "ADD_NOTE",payload:{note:string, id:string}};
+    type: "GET_APPOINTMENTS";
+    payload: { appointments: Appointment[]; user: User };
+  }
+  | { type: "ADD_NOTE", payload: { note: string, id: string } }
+  | { type: "UPDATE_STATUS", payload: { id: string, newStatus: Status } };
 
 const appointmentReducer = (
   state: AppointmentState,
@@ -47,18 +49,27 @@ const appointmentReducer = (
           new Date(a.date).getTime() -
           new Date(b.date).getTime()
       );
-
       return {
         ...state,
         myAppointments: sortedAppointments,
       };
     }
-    case "ADD_NOTE":{
-      const {note, id } =action.payload;
+    case "ADD_NOTE": {
+      const { note, id } = action.payload;
       return {
         ...state,
-        appointments: state.appointments.map(appoint =>appoint.id===id?{...appoint,note}:appoint)
-      }}
+        appointments: state.appointments.map(appoint => appoint.id === id ? { ...appoint, note } : appoint)
+      }
+    }
+    case "UPDATE_STATUS":
+      console.log("Updated appointments:", state.appointments);
+      const { id, newStatus } = action.payload;
+      return {
+        ...state,
+        appointments: state.appointments.map((appoint) =>
+          appoint.id === id ? { ...appoint, status: newStatus } : appoint
+        ),
+      };
     default:
       return state;
   }

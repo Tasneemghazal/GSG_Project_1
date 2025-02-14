@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Stack } from '@mui/material';
 import { Appointment, Status, UserType } from '../../../types/@types';
 import { button, table, tableContainer } from './appointmentsTable.style';
@@ -12,6 +12,7 @@ interface IProps {
 }
 
 const AppointmentsTable: React.FC<IProps> = ({ appointments, userType, showSymptom, openNoteModal, handleStatusChange }) => {
+
   return (
     <TableContainer component={Paper} sx={tableContainer}>
       <Table sx={table}>
@@ -63,7 +64,7 @@ const AppointmentsTable: React.FC<IProps> = ({ appointments, userType, showSympt
                             status === Status.Pending ? 'error' : status === Status.Confirmed ? 'primary' : 'success'
                           }
                           sx={button}
-                          onClick={() => handleStatusChange(appointment.id, status)}
+                          onClick={() =>  handleStatusChange(appointment.id, status)}
                         >
                           {status}
                         </Button>

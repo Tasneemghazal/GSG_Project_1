@@ -30,27 +30,27 @@ const theme = createTheme({
 });
 
 const Booking = () => {
-  const {state, addAppointment, setAppointment } = useAppointmentContext();
-  const {user} =useContext(AuthContext);
-  const [storedDoctors] =useLocalStorage("doctors",[]);
-  const doctors:User[]=storedDoctors;
+  const { state, addAppointment, setAppointment } = useAppointmentContext();
+  const { user } = useContext(AuthContext);
+  const [storedDoctors] = useLocalStorage("doctors", []);
+  const doctors: User[] = storedDoctors;
   const [isBooked, setIsBooked] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    const newAppointment ={...state.appointment,[name]:name==="age"?Number(value):value, patientId:user.id, id: Date.now().toString()};
+    const newAppointment = { ...state.appointment, [name]: name === "age" ? Number(value) : value, patientId: user.id, id: Date.now().toString() };
     setAppointment(newAppointment);
   };
 
   const handleSelectChange = (e: SelectChangeEvent<string>) => {
     const { name, value } = e.target;
-    const newAppointment ={...state.appointment,[name]:value};
+    const newAppointment = { ...state.appointment, [name]: value };
     setAppointment(newAppointment);
   };
 
   const handleDoctorChange = (e: SelectChangeEvent<string>) => {
     const chosenDoctor = doctors.find(doc => doc.name === e.target.value);
-    const newAppointment={
+    const newAppointment = {
       ...state.appointment,
       doctorId: chosenDoctor?.id || '',
       doctorName: chosenDoctor?.name || '',
@@ -70,9 +70,32 @@ const Booking = () => {
       alert('Please fill all required fields');
       return;
     }
+    if (state.appointment.age < 0 || state.appointment.age > 120) {
+      alert('Age must be between 0 and 120.');
+      return;
+    }
+    const selectedTime = state.appointment.time;
+    if (selectedTime < "09:00" || selectedTime > "17:00") {
+      alert('Please select a time between 09:00 AM and 05:00 PM');
+      return;
+    }
+
     console.log('Booking appointment:', state.appointment);
     addAppointment(state.appointment);
     setIsBooked(true);
+    setAppointment({
+      patientName: '',
+      age: '',
+      doctorName: '',
+      doctorId: '',
+      contact: '',
+      gender: '',
+      date: '',
+      time: '',
+      symptoms: '',
+      patientId: user.id,
+      id: '',
+    });
   };
 
   return (
@@ -96,6 +119,7 @@ const Booking = () => {
             margin='normal'
             name='age'
             type="number"
+            inputProps={{ min: 0, max: 120 }}
             value={state.appointment.age}
             onChange={handleChange}
           />
@@ -156,7 +180,7 @@ const Booking = () => {
             inputProps={{
               min: "09:00",
               max: "17:00",
-              step: 900, 
+              step: 900,
             }}
             name="time"
             value={state.appointment.time}
@@ -184,7 +208,7 @@ const Booking = () => {
         </Box>
       </Box>
       {isBooked && (
-        <AlertMessage isBooked={isBooked} setIsBooked={setIsBooked} message='Booking Successful'/>
+        <AlertMessage isBooked={isBooked} setIsBooked={setIsBooked} message='Booking Successful' />
       )}
     </ThemeProvider>
   );
