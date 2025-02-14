@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Stack, Box, TextField, MenuItem, SelectChangeEvent, Slider, Typography } from '@mui/material';
 import { Appointment, Status, UserType } from '../../../types/@types';
 import { button, table, tableContainer } from './appointmentsTable.style';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams , useLocation   } from 'react-router-dom';
 
 interface IProps {
   appointments: Appointment[];
@@ -16,7 +16,13 @@ const AppointmentsTable: React.FC<IProps> = ({ appointments, userType, showSympt
   const [paramse, setParamse] = useSearchParams();
   const [fillterlist, setFillterlist] = useState<Appointment[]>(appointments);
   const [ageRange, setAgeRange] = useState<number[]>([0, 50]);
-
+  const [filterdata, setFilterdata] = useState(false);
+  const location = useLocation()
+  console.log(location.pathname);
+  // if (location.pathname.includes("patient") ){
+  //   setFilterdata(false);
+  // }
+  // doctor
   useEffect(() => {
     const genderFilter = paramse.get('gender');
     const statusFilter = paramse.get('status');
@@ -41,7 +47,7 @@ const AppointmentsTable: React.FC<IProps> = ({ appointments, userType, showSympt
     setFillterlist(filteredAppointments);
   }, [paramse, appointments]);
 
-  const handleGender = (event: SelectChangeEvent<string>) => {
+  const handleGender = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     const newParams = new URLSearchParams(paramse);
     if (value === 'all') {
@@ -52,7 +58,7 @@ const AppointmentsTable: React.FC<IProps> = ({ appointments, userType, showSympt
     setParamse(newParams);
   };
 
-  const handleStatus = (event: SelectChangeEvent<string>) => {
+  const handleStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     const newParams = new URLSearchParams(paramse);
     if (value === 'all') {
@@ -63,7 +69,7 @@ const AppointmentsTable: React.FC<IProps> = ({ appointments, userType, showSympt
     setParamse(newParams);
   };
 
-  const handleAgeRangeChange = (event: Event, newValue: number | number[]) => {
+  const handleAgeRangeChange = (newValue: number | number[]) => {
     const [min, max] = newValue as number[];
     setAgeRange([min, max]);
     const newParams = new URLSearchParams(paramse);
@@ -74,49 +80,63 @@ const AppointmentsTable: React.FC<IProps> = ({ appointments, userType, showSympt
 
   return (
     <>
-      <Box component="div" sx={{ display: 'flex', flexDirection: 'column', gap: 2, padding: 2, backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
-        <Box sx={{ display: 'flex' }}>
-          <TextField
-            select
-            id="gender"
-            label="Gender"
-            value={paramse.get("gender") || "all"}
-            onChange={handleGender}
-            variant="outlined"
-            fullWidth
-          >
-            <MenuItem value="all">All</MenuItem>
-            <MenuItem value="Male">Male</MenuItem>
-            <MenuItem value="Female">Female</MenuItem>
-          </TextField>
-          <TextField
-            select
-            id="status"
-            label="Status"
-            value={paramse.get("status") || "all"}
-            onChange={handleStatus}
-            variant="outlined"
-            fullWidth
-          >
-            <MenuItem value="all">All</MenuItem>
-            {Object.values(Status).map((status) => (
-              <MenuItem key={status} value={status}>{status}</MenuItem>
-            ))}
-          </TextField>
-        </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Typography variant="body1">{`Age Range: ${ageRange[0]} - ${ageRange[1]}`}</Typography>
-          <Slider
-            value={ageRange}
-            onChange={handleAgeRangeChange}
-            valueLabelDisplay="auto"
-            min={0}
-            max={100}
-            step={1}
-            sx={{ flex: 1 }}
-          />
-        </Box>
-      </Box>
+  {  location.pathname.includes("doctor")&& 
+     <Box sx={{display:"flex", width:"100%",  marginTop: '8px',  marginBottom: '8px', marginLeft: '8px',  marginRight: '8px', color:"blue" }}>
+     <span
+        color="primary"
+        onClick={() => {
+          setFilterdata(!filterdata);
+          setFillterlist(appointments);
+        }}
+      >
+        Filter
+      </span>
+     </Box>}
+      {filterdata && (
+        <Box component="div" sx={{ display: 'flex', flexDirection: 'column', gap: 2, padding: 2, backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
+          <Box sx={{ display: 'flex' }}>
+            <TextField
+              select
+              id="gender"
+              label="Gender"
+              value={paramse.get("gender") || "all"}
+              onChange={handleGender}
+              variant="outlined"
+              fullWidth
+            >
+              <MenuItem value="all">All</MenuItem>
+              <MenuItem value="Male">Male</MenuItem>
+              <MenuItem value="Female">Female</MenuItem>
+            </TextField>
+            <TextField
+              select
+              id="status"
+              label="Status"
+              value={paramse.get("status") || "all"}
+              onChange={handleStatus}
+              variant="outlined"
+              fullWidth
+            >
+              <MenuItem value="all">All</MenuItem>
+              {Object.values(Status).map((status) => (
+                <MenuItem key={status} value={status}>{status}</MenuItem>
+              ))}
+            </TextField>
+
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Typography variant="body1">{`Age Range: ${ageRange[0]} - ${ageRange[1]}`}</Typography>
+            <Slider
+              value={ageRange}
+              onChange={handleAgeRangeChange}
+              valueLabelDisplay="auto"
+              min={0}
+              max={100}
+              step={1}
+              sx={{ flex: 1 }}
+            />
+          </Box>
+        </Box>)}
       <TableContainer component={Paper} sx={tableContainer}>
         <Table sx={table}>
           <TableHead>
@@ -174,8 +194,8 @@ const AppointmentsTable: React.FC<IProps> = ({ appointments, userType, showSympt
                         variant="contained"
                         color={
                           appointment.status === Status.Pending ? 'error' :
-                          appointment.status === Status.Confirmed ? 'primary' :
-                          'success'
+                            appointment.status === Status.Confirmed ? 'primary' :
+                              'success'
                         }
                         sx={button}
                       >
