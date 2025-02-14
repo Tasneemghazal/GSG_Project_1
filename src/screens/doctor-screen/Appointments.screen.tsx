@@ -9,11 +9,11 @@ import useAppointmentContext from "../../hooks/useAppointment";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const Appointments = () => {
-  const { state, getAppointmentsForDoctor} = useAppointmentContext(); 
+  const { state, getMyAppointments} = useAppointmentContext(); 
   const {user}= useContext(AuthContext);
   const { state: modalState, dispatch } = useModal();
   useEffect(() => {
-    getAppointmentsForDoctor();
+    getMyAppointments();
   }, []); 
 
   const showSymptom = (symptom: string) => {
