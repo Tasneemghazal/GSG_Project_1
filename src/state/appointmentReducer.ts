@@ -13,7 +13,7 @@ type AppointmentAction =
   | {
       type: "GET_APPOINTMENTS";
       payload: { appointments: Appointment[]; user: User };
-    };
+    }|{type: "ADD_NOTE",payload:{note:string, id:string}};
 
 const appointmentReducer = (
   state: AppointmentState,
@@ -53,6 +53,12 @@ const appointmentReducer = (
         myAppointments: sortedAppointments,
       };
     }
+    case "ADD_NOTE":{
+      const {note, id } =action.payload;
+      return {
+        ...state,
+        appointments: state.appointments.map(appoint =>appoint.id===id?{...appoint,note}:appoint)
+      }}
     default:
       return state;
   }

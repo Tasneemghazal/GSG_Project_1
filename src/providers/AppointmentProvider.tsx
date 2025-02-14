@@ -10,6 +10,7 @@ interface AppointmentContextProps {
   addAppointment: (appointment: Appointment) => void;
   setAppointment: (appointment: Appointment) => void;
   getAppointmentsForDoctor: () => void;
+  addNote: (note:string, id:string) => void;
 }
 
 export const AppointmentContext = createContext<AppointmentContextProps | undefined>(undefined);
@@ -28,13 +29,16 @@ export const AppointmentProvider: React.FC<{ children: ReactNode }> = ({ childre
   const getAppointmentsForDoctor = () => {
     dispatch({ type: 'GET_APPOINTMENTS', payload: {appointments:storedAppointments, user} });
   };
+  const addNote = (note:string,id:string) => {
+    dispatch({ type: 'ADD_NOTE', payload: {note,id} });
+  };
 
   useEffect(() => {
     setStoredAppointments(state.appointments);
   }, [state.appointments, setStoredAppointments]);
 
   return (
-    <AppointmentContext.Provider value={{ state, addAppointment,setAppointment, getAppointmentsForDoctor }}>
+    <AppointmentContext.Provider value={{ state, addAppointment,setAppointment, getAppointmentsForDoctor,addNote }}>
       {children}
     </AppointmentContext.Provider>
   );

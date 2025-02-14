@@ -7,7 +7,7 @@ interface IProps {
   appointments: Appointment[];
   userType: UserType;
   showSymptom: (symptom: string) => void;
-  openNoteModal?: () => void;
+  openNoteModal: (id:string) => void;
   handleStatusChange: (id: string, newStatus: Status) => void;
 }
 
@@ -19,6 +19,8 @@ const AppointmentsTable: React.FC<IProps> = ({ appointments, userType, showSympt
           <TableRow>
             <TableCell>Patient Name</TableCell>
             <TableCell align="right">Age</TableCell>
+            <TableCell align="right">Date</TableCell>
+            <TableCell align="right">Time</TableCell>
             <TableCell align="right">Gender</TableCell>
             <TableCell align="right">Contact</TableCell>
             <TableCell align="right">Symptoms</TableCell>
@@ -32,6 +34,8 @@ const AppointmentsTable: React.FC<IProps> = ({ appointments, userType, showSympt
               <TableRow key={appointment.id}>
                 <TableCell>{appointment.patientName}</TableCell>
                 <TableCell align="right">{appointment.age}</TableCell>
+                <TableCell align="right">{appointment.date}</TableCell>
+                <TableCell align="right">{appointment.time}</TableCell>
                 <TableCell align="right">{appointment.gender}</TableCell>
                 <TableCell align="right">{appointment.contact}</TableCell>
                 <TableCell align="right">
@@ -42,7 +46,7 @@ const AppointmentsTable: React.FC<IProps> = ({ appointments, userType, showSympt
                 
                 {userType === UserType.Doctor && (
                   <TableCell align="right">
-                    <Button variant="outlined" sx={button} onClick={openNoteModal}>
+                    <Button variant="outlined" sx={button} onClick={()=>openNoteModal(appointment.id)}>
                       Add Note
                     </Button>
                   </TableCell>
