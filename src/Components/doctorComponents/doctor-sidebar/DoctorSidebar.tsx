@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   Drawer,
@@ -7,7 +7,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   boxIcon,
   drawerStyle,
@@ -17,13 +17,22 @@ import {
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { FaUserDoctor } from "react-icons/fa6";
+import { MdLogout } from "react-icons/md";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 const DoctorSidebar: React.FC = () => {
   const [active, setActive] = useState("Dashboard");
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   const menuItems = [
     { text: "Dashboard", link: "dashboard", icon: <DashboardIcon /> },
     { text: "Appointments", link: "appointments", icon: <CalendarMonthIcon /> },
+    { text: "Logout", link: "logout", icon: <MdLogout /> },
   ];
 
   return (
@@ -37,9 +46,11 @@ const DoctorSidebar: React.FC = () => {
         {menuItems.map((item) => (
           <ListItemButton
             key={item.link}
-            component={Link}
-            onClick={() => setActive(item.text)}
-            to={item.link}
+            component={item.text === "Logout" ? "button" : Link}
+            onClick={
+              item.text === "Logout" ? handleLogout : () => setActive(item.text)
+            }
+            to={item.text === "Logout" ? undefined : item.link}
             sx={menuItemStyle(active === item.text)}
           >
             <ListItemIcon className="icon">{item.icon}</ListItemIcon>

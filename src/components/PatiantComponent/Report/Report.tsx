@@ -1,7 +1,6 @@
 import { Box, Paper, Typography } from '@mui/material';
-import { Container } from '@mui/system';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
-import { box, box2, paper,typography } from './Report.style';
+import { box , paper,typography } from './Report.style';
 
 interface HealthData {
   icon: JSX.Element;
@@ -23,10 +22,9 @@ export default function Report() {
   ];
 
   return (
-    <Container maxWidth="sm"> 
-      <Paper sx={paper()}>
+      <Paper sx={paper}>
         <Box>
-          <Box sx={box()}>
+          <Box sx={box}>
             <Typography variant="h5" sx={typography()}>
               Health Report
             </Typography>
@@ -43,16 +41,7 @@ export default function Report() {
             <Tooltip />
             <Bar dataKey="value" fill="#3572EF" /> 
           </BarChart>
-          <Box sx={{ marginTop: 2 }}>
-            {healthData.map((item, index) => (
-              <Box key={index} sx={box2()}>
-                <Box sx={{ marginRight: 1 }}>{item.icon}</Box>
-                <Typography variant="body1">{item.label}: {item.value}</Typography>
-              </Box>
-            ))}
-          </Box>
         </Box>
       </Paper>
-    </Container>
   );
 }

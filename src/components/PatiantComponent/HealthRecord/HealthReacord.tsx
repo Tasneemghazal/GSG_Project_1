@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { Box, Typography, Paper, Container } from '@mui/material';
+import { Box, Typography, Paper } from '@mui/material';
 import { box1, box2, paper, typography } from './HealthRecord.style';
 
 interface HealthRecord {
@@ -14,13 +14,12 @@ interface HealthRecordComponentProps {
 
 const HealthRecordComponent: React.FC<HealthRecordComponentProps> = ({ healthData }) => {
   return (
-    <Container maxWidth="sm" > 
-      <Paper sx={paper()}>
-        <Box sx={box1()}>
+      <Paper sx={paper}>
+        <Box sx={box1}>
           <Typography variant="h5" sx={{ color: '#050C9C' }}>Health Records</Typography>
         </Box>
         
-        <Box sx={box2()}>
+        <Box sx={box2}>
           {healthData.map((item, index) => (
             <Typography key={index} variant="h6" sx={typography()}>
               {React.cloneElement(item.icon, { style: { marginRight: 8, color: '#3ABEF9' } })}
@@ -29,7 +28,6 @@ const HealthRecordComponent: React.FC<HealthRecordComponentProps> = ({ healthDat
           ))}
         </Box>
       </Paper>
-    </Container>
   );
 };
 
