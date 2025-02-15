@@ -13,7 +13,7 @@ import "./beast.css"
 
 const BeastServices = () => {
   return (
-    <div className="services">
+    <div id="services" className="services">
       <div className="container">
         <div className="data">
           <h2>PROVIDES BEST SERVICE</h2>
