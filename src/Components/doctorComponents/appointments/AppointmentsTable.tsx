@@ -1,23 +1,45 @@
 import React, { useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Stack } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Stack, Select, MenuItem, SelectChangeEvent } from '@mui/material';
 import { Appointment, Status, UserType } from '../../../types/@types';
 import { button, table, tableContainer } from './appointmentsTable.style';
-
+import { useSearchParams } from 'react-router-dom';
 interface IProps {
-  appointments: Appointment[];
+  filteredAppointments: Appointment[];
   userType: UserType;
   showSymptom: (symptom: string) => void;
   openNoteModal: (id:string) => void;
   handleStatusChange: (id: string, newStatus: Status) => void;
+  filterAppointments: (status: Status) => void
+
 }
 
-const AppointmentsTable: React.FC<IProps> = ({ appointments, userType, showSymptom, openNoteModal, handleStatusChange }) => {
+const AppointmentsTable: React.FC<IProps> = ({filteredAppointments,userType, showSymptom, openNoteModal, handleStatusChange, filterAppointments }) => {
+  const [params, setParams]=useSearchParams();
   useEffect(() => {
-    console.log("Appointments in Table:", appointments);
-  }, [appointments]);
+    const status = params.get('status') as Status || Status.All;
+    filterAppointments(status);
+  }, [params]);
+  const handleStatusFilter = (e: SelectChangeEvent<Status>) => {
+    const selectedStatus = e.target.value as Status;
+
+    if (selectedStatus === Status.All) {
+      params.delete('status');
+    } else {
+      params.set('status', selectedStatus);
+    }
+    setParams(params);
+  };
 
   return (
     <TableContainer component={Paper} sx={tableContainer}>
+        <Stack direction="row" spacing={2} sx={{ p: 2 }}>
+        <Select value={(params.get('status') as Status) || Status.All} onChange={handleStatusFilter}>
+            <MenuItem value={Status.All}>All</MenuItem>
+            <MenuItem value={Status.Pending}>Pending</MenuItem>
+            <MenuItem value={Status.Confirmed}>Confirmed</MenuItem>
+            <MenuItem value={Status.Completed}>Completed</MenuItem>
+          </Select>
+        </Stack>
       <Table sx={table}>
         <TableHead>
           <TableRow>
@@ -33,8 +55,8 @@ const AppointmentsTable: React.FC<IProps> = ({ appointments, userType, showSympt
           </TableRow>
         </TableHead>
         <TableBody>
-          {appointments.length > 0 ? (
-            appointments.map((appointment) => (
+          {filteredAppointments.length > 0 ? (
+            filteredAppointments.map((appointment) => (
               <TableRow key={appointment.id}>
                 <TableCell>{appointment.patientName}</TableCell>
                 <TableCell align="right">{appointment.age}</TableCell>

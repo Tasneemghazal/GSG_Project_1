@@ -19,9 +19,10 @@ interface AppointmentContextProps {
   setAppointment: (appointment: Appointment) => void;
   getMyAppointments: () => void;
   countStatisticData: () => void;
-  addNote: (note:  string, id:  string) => void;
+  addNote: (note: string, id: string) => void;
   getAppointmentsPerDay: () => void;
   handleStatusChange: (id: string, newStatus: Status) => void;
+  filterAppointments: (status: Status) => void;
 }
 
 export const AppointmentContext = createContext<
@@ -43,19 +44,20 @@ export const AppointmentProvider: React.FC<{ children: ReactNode }> = ({
     pending: 0,
     confirmed: 0,
     totalAppointmentsToday: 0,
-    appointmentsPerDay:{},
+    appointmentsPerDay: {},
+    filteredAppointments:storedAppointments
   });
 
-  const addAppointment = (newAppointment:  Appointment) => {
+  const addAppointment = (newAppointment: Appointment) => {
     dispatch({ type: "ADD_APPOINTMENT", payload: newAppointment });
   };
-  const setAppointment = (newAppointment:  Appointment) => {
+  const setAppointment = (newAppointment: Appointment) => {
     dispatch({ type: "SET_APPOINTMENT", payload: newAppointment });
   };
   const getMyAppointments = () => {
     dispatch({
       type: "GET_APPOINTMENTS",
-      payload: {  appointments:  storedAppointments, user  },
+      payload: { appointments: storedAppointments, user },
     });
   };
   const countStatisticData = () => {
@@ -68,13 +70,15 @@ export const AppointmentProvider: React.FC<{ children: ReactNode }> = ({
     dispatch({ type: "ADD_NOTE", payload: { note, id } });
   };
   const handleStatusChange = (id: string, newStatus: Status) => {
-    dispatch({ type: 'UPDATE_STATUS', payload: { id, newStatus } });
-  }
-  
+    dispatch({ type: "UPDATE_STATUS", payload: { id, newStatus } });
+  };
+  const filterAppointments = (status: Status) => {
+    dispatch({ type: "FILTER", payload: { status } });
+  };
+
   useEffect(() => {
     setStoredAppointments(state.appointments);
   }, [state.appointments, setStoredAppointments]);
-
 
   return (
     <AppointmentContext.Provider
@@ -85,8 +89,9 @@ export const AppointmentProvider: React.FC<{ children: ReactNode }> = ({
         getMyAppointments,
         addNote,
         countStatisticData,
-        getAppointmentsPerDay, 
-        handleStatusChange
+        getAppointmentsPerDay,
+        handleStatusChange,
+        filterAppointments,
       }}
     >
       {children}

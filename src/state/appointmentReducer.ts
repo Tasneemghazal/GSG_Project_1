@@ -8,23 +8,23 @@ export interface AppointmentState {
   confirmed:number;
   totalAppointmentsToday:number;
   appointmentsPerDay: Record<string, number>;
+  filteredAppointments: Appointment[];
 }
 
-type AppointmentAction =
+type Action =
   | { type: "ADD_APPOINTMENT"; payload: Appointment }
   | { type: "CLEAR_APPOINTMENTS" }
   | { type: "SET_APPOINTMENT"; payload: Appointment }
-  | {
-    type: "GET_APPOINTMENTS";
-    payload: { appointments: Appointment[]; user: User };
-  }
-  | { type: "ADD_NOTE", payload: { note: string, id: string } }
-  | { type: "UPDATE_STATUS", payload: { id: string, newStatus: Status } }|
-    {type: "COUNT_STATISTIC_DATA", payload:Appointment[]}|{type: "APPOINTMENTS_PER_DAY", payload: Appointment[]};
+  | { type: "GET_APPOINTMENTS"; payload: { appointments: Appointment[]; user: User } }
+  | { type: "ADD_NOTE"; payload: { note: string; id: string } }
+  | { type: "FILTER"; payload: { status: Status } }
+  | { type: "UPDATE_STATUS"; payload: { id: string; newStatus: Status } }
+  | { type: "COUNT_STATISTIC_DATA"; payload: Appointment[] }
+  | { type: "APPOINTMENTS_PER_DAY"; payload: Appointment[] };
 
 const appointmentReducer = (
   state: AppointmentState,
-  action: AppointmentAction
+  action: Action
 ): AppointmentState => {
   switch (action.type) {
     case "SET_APPOINTMENT":
@@ -50,13 +50,12 @@ const appointmentReducer = (
           : appointments.filter((appoint) => appoint.patientId === user.id);
 
       const sortedAppointments = filteredAppointments.sort(
-        (a, b) =>
-          new Date(a.date).getTime() -
-          new Date(b.date).getTime()
+        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
       );
       return {
         ...state,
         myAppointments: sortedAppointments,
+        filteredAppointments: sortedAppointments,
       };
     }
     case 'COUNT_STATISTIC_DATA':{
@@ -80,8 +79,17 @@ const appointmentReducer = (
           appointmentsPerDay: appointmentsByDate,
         };
     }
-    case "ADD_NOTE": {
-      const { note, id } = action.payload;
+    case 'FILTER': {
+      const { status } = action.payload;
+      return {
+        ...state,
+        filteredAppointments:
+          status === Status.All ? state.appointments : state.appointments.filter((appoint) => appoint.status === status),
+      };
+    }
+    
+    case "ADD_NOTE":  {
+      const {  note, id } =  action.payload;
       return {
         ...state,
         appointments: state.appointments.map(appoint => appoint.id === id ? { ...appoint, note } : appoint)
