@@ -84,7 +84,7 @@ const appointmentReducer = (
       return {
         ...state,
         filteredAppointments:
-          status === Status.All ? state.appointments : state.appointments.filter((appoint) => appoint.status === status),
+          status === Status.All ? state.myAppointments : state.myAppointments.filter((appoint) => appoint.status === status),
       };
     }
     
@@ -106,7 +106,8 @@ const appointmentReducer = (
       return {
         ...state,
         appointments: updatedAllAppointments,
-        myAppointments: updatedMyAppointments
+        myAppointments: updatedMyAppointments,
+        filteredAppointments: updatedMyAppointments
       }}
     default:
       return state;
