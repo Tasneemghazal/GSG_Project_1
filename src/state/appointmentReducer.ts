@@ -1,9 +1,13 @@
-import { Appointment, User, UserType } from "../types/@types";
+import { Appointment, Status, User, UserType } from "../types/@types";
 
 export interface AppointmentState {
   appointment: Appointment;
   appointments: Appointment[];
   myAppointments: Appointment[];
+  pending:number;
+  confirmed:number;
+  totalAppointmentsToday:number;
+  appointmentsPerDay: Record<string, number>;
 }
 
 type AppointmentAction =
@@ -13,7 +17,8 @@ type AppointmentAction =
   | {
       type: "GET_APPOINTMENTS";
       payload: { appointments: Appointment[]; user: User };
-    }|{type: "ADD_NOTE",payload:{note:string, id:string}};
+    }|{type: "ADD_NOTE",payload:{note:string, id:string}}|
+    {type: "COUNT_STATISTIC_DATA", payload:Appointment[]}|{type: "APPOINTMENTS_PER_DAY", payload: Appointment[]};
 
 const appointmentReducer = (
   state: AppointmentState,
@@ -52,6 +57,27 @@ const appointmentReducer = (
         ...state,
         myAppointments: sortedAppointments,
       };
+    }
+    case 'COUNT_STATISTIC_DATA':{
+      const today = new Date().toISOString().split('T')[0];
+        return {
+          ...state,
+          pending: action.payload.filter((appoint) =>appoint.status===Status.Pending).length,
+          confirmed: action.payload.filter((appoint)=>appoint.status === Status.Confirmed).length,
+          totalAppointmentsToday: action.payload.filter((appoint)=>appoint.date===today).length,
+        }
+    }
+    case 'APPOINTMENTS_PER_DAY':{
+      const appointmentsByDate: Record<string, number> = {};
+      
+        action.payload.forEach((appointment) => {
+          appointmentsByDate[appointment.date] = (appointmentsByDate[appointment.date] || 0) + 1;
+        });
+      
+        return {
+          ...state,
+          appointmentsPerDay: appointmentsByDate,
+        };
     }
     case "ADD_NOTE":{
       const {note, id } =action.payload;
