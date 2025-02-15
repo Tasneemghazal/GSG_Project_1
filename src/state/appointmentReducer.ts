@@ -1,9 +1,10 @@
-import { Appointment, User, UserType } from "../types/@types";
+import { Appointment, Status, User, UserType } from "../types/@types";
 
 export interface AppointmentState {
   appointment: Appointment;
   appointments: Appointment[];
   myAppointments: Appointment[];
+  filteredAppointments: Appointment[];
 }
 
 type AppointmentAction =
@@ -13,7 +14,9 @@ type AppointmentAction =
   | {
       type: "GET_APPOINTMENTS";
       payload: { appointments: Appointment[]; user: User };
-    }|{type: "ADD_NOTE",payload:{note:string, id:string}};
+    }
+  | { type: "ADD_NOTE"; payload: { note: string; id: string } }
+  | { type: "FILTER"; payload: { status: Status } };
 
 const appointmentReducer = (
   state: AppointmentState,
@@ -43,22 +46,33 @@ const appointmentReducer = (
           : appointments.filter((appoint) => appoint.patientId === user.id);
 
       const sortedAppointments = filteredAppointments.sort(
-        (a, b) =>
-          new Date(a.date).getTime() -
-          new Date(b.date).getTime()
+        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
       );
 
       return {
         ...state,
         myAppointments: sortedAppointments,
+        filteredAppointments: sortedAppointments,
       };
     }
-    case "ADD_NOTE":{
-      const {note, id } =action.payload;
+    case 'FILTER': {
+      const { status } = action.payload;
       return {
         ...state,
-        appointments: state.appointments.map(appoint =>appoint.id===id?{...appoint,note}:appoint)
-      }}
+        filteredAppointments:
+          status === Status.All ? state.appointments : state.appointments.filter((appoint) => appoint.status === status),
+      };
+    }
+    
+    case "ADD_NOTE": {
+      const { note, id } = action.payload;
+      return {
+        ...state,
+        appointments: state.appointments.map((appoint) =>
+          appoint.id === id ? { ...appoint, note } : appoint
+        ),
+      };
+    }
     default:
       return state;
   }

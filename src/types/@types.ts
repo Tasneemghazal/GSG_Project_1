@@ -1,7 +1,8 @@
 export enum Status {
   Pending = "Pending",
   Confirmed = "Confirmed",
-  Completed = "Completed"
+  Completed = "Completed",
+  All="all"
 }
 export enum ModalMode {
   SYMPTOM = "SYMPTOM",

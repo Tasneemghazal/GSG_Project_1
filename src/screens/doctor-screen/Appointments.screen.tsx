@@ -9,7 +9,7 @@ import useAppointmentContext from "../../hooks/useAppointment";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const Appointments = () => {
-  const { state, getAppointmentsForDoctor} = useAppointmentContext(); 
+  const { state, getAppointmentsForDoctor, filterAppointments} = useAppointmentContext(); 
   const {user}= useContext(AuthContext);
   const { state: modalState, dispatch } = useModal();
   useEffect(() => {
@@ -37,7 +37,8 @@ const Appointments = () => {
         </IconButton>
       </Paper>
       <AppointmentsTable
-        appointments={state.myAppointments} 
+        filteredAppointments={state.filteredAppointments} 
+        filterAppointments={filterAppointments}
         userType={user.userType}
         showSymptom={showSymptom}
         openNoteModal={openNoteModal}
