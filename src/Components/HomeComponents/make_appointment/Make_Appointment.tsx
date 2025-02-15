@@ -75,7 +75,7 @@ const Make_appointment = () => {
     );
 
     return (
-        <div className='appointment'>
+        <div id='services' className='appointment'>
             <div className='container'>
                 <div className='flex'>
                     <div className='img'>
@@ -83,7 +83,6 @@ const Make_appointment = () => {
                     </div>
                     <div className='data'>
                         <div className='header'>
-                            <span>ONLINE APPOINTMENT</span>
                             <h2>Make an online appointment booking for treatment patients</h2>
                             {massage && <span>{massage}</span>}
                         </div>
