@@ -4,16 +4,12 @@ import { PatientSidebar } from '../../Components/PatiantComponent/PaitientSideba
 
 const Patient = () => {
   return (
-    <Box sx={{ display: 'flex', height: '100vh' }}>
+    <Box sx={{ display: 'flex', maxHeight: '100vh' }}>
       <PatientSidebar />
       <Box
-        component="main"
         sx={{
+          maxHeight: '100vh',
           flexGrow: 1,
-          bgcolor: 'background.default',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
           p: 3,
         }}
       >
