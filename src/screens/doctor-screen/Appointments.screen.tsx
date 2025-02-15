@@ -41,9 +41,7 @@ const Appointments = () => {
         userType={user.userType}
         showSymptom={showSymptom}
         openNoteModal={openNoteModal}
-        handleStatusChange={(id, newStatus) => {
-          handleStatusChange(id, newStatus);
-        }}
+        handleStatusChange={handleStatusChange}
       />
 
       <CustomModal

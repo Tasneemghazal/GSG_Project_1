@@ -34,14 +34,8 @@ export const AppointmentProvider: React.FC<{ children: ReactNode }> = ({ childre
     dispatch({ type: 'ADD_NOTE', payload: { note, id } });
   };
   const handleStatusChange = (id: string, newStatus: Status) => {
-    console.log("📢 handleStatusChange TRIGGERED in Provider:", id, newStatus);
-    dispatch({ type: 'UPDATE_STATUS', payload: { id, newStatus } })
-    console.log("Dispatched action with payload:", { id, newStatus });
+    dispatch({ type: 'UPDATE_STATUS', payload: { id, newStatus } });
   }
-  
-  useEffect(() => {
-    console.log("Updated appointments:", state.appointments);
-  }, [state.appointments]); 
   
   useEffect(() => {
     setStoredAppointments(state.appointments);

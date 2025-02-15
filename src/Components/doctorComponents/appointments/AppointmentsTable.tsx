@@ -12,6 +12,9 @@ interface IProps {
 }
 
 const AppointmentsTable: React.FC<IProps> = ({ appointments, userType, showSymptom, openNoteModal, handleStatusChange }) => {
+  useEffect(() => {
+    console.log("Appointments in Table:", appointments);
+  }, [appointments]);
 
   return (
     <TableContainer component={Paper} sx={tableContainer}>

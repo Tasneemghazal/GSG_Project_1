@@ -61,15 +61,19 @@ const appointmentReducer = (
         appointments: state.appointments.map(appoint => appoint.id === id ? { ...appoint, note } : appoint)
       }
     }
-    case "UPDATE_STATUS":
-      console.log("Updated appointments:", state.appointments);
+    case "UPDATE_STATUS":{
       const { id, newStatus } = action.payload;
+      const updatedAllAppointments =state.appointments.map((appoint) =>
+        appoint.id === id ? { ...appoint, status: newStatus } : appoint
+      )
+      const updatedMyAppointments =state.myAppointments.map((appoint) =>
+        appoint.id === id ? { ...appoint, status: newStatus } : appoint
+      )
       return {
         ...state,
-        appointments: state.appointments.map((appoint) =>
-          appoint.id === id ? { ...appoint, status: newStatus } : appoint
-        ),
-      };
+        appointments: updatedAllAppointments,
+        myAppointments: updatedMyAppointments
+      }}
     default:
       return state;
   }
