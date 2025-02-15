@@ -15,9 +15,11 @@ type AppointmentAction =
   | { type: "CLEAR_APPOINTMENTS" }
   | { type: "SET_APPOINTMENT"; payload: Appointment }
   | {
-      type: "GET_APPOINTMENTS";
-      payload: { appointments: Appointment[]; user: User };
-    }|{type: "ADD_NOTE",payload:{note:string, id:string}}|
+    type: "GET_APPOINTMENTS";
+    payload: { appointments: Appointment[]; user: User };
+  }
+  | { type: "ADD_NOTE", payload: { note: string, id: string } }
+  | { type: "UPDATE_STATUS", payload: { id: string, newStatus: Status } }|
     {type: "COUNT_STATISTIC_DATA", payload:Appointment[]}|{type: "APPOINTMENTS_PER_DAY", payload: Appointment[]};
 
 const appointmentReducer = (
@@ -52,7 +54,6 @@ const appointmentReducer = (
           new Date(a.date).getTime() -
           new Date(b.date).getTime()
       );
-
       return {
         ...state,
         myAppointments: sortedAppointments,
@@ -79,11 +80,25 @@ const appointmentReducer = (
           appointmentsPerDay: appointmentsByDate,
         };
     }
-    case "ADD_NOTE":{
-      const {note, id } =action.payload;
+    case "ADD_NOTE": {
+      const { note, id } = action.payload;
       return {
         ...state,
-        appointments: state.appointments.map(appoint =>appoint.id===id?{...appoint,note}:appoint)
+        appointments: state.appointments.map(appoint => appoint.id === id ? { ...appoint, note } : appoint)
+      }
+    }
+    case "UPDATE_STATUS":{
+      const { id, newStatus } = action.payload;
+      const updatedAllAppointments =state.appointments.map((appoint) =>
+        appoint.id === id ? { ...appoint, status: newStatus } : appoint
+      )
+      const updatedMyAppointments =state.myAppointments.map((appoint) =>
+        appoint.id === id ? { ...appoint, status: newStatus } : appoint
+      )
+      return {
+        ...state,
+        appointments: updatedAllAppointments,
+        myAppointments: updatedMyAppointments
       }}
     default:
       return state;

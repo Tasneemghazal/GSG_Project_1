@@ -9,12 +9,12 @@ import useAppointmentContext from "../../hooks/useAppointment";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const Appointments = () => {
-  const { state, getMyAppointments} = useAppointmentContext(); 
-  const {user}= useContext(AuthContext);
+  const { state, getMyAppointments, handleStatusChange } = useAppointmentContext();
+  const { user } = useContext(AuthContext);
   const { state: modalState, dispatch } = useModal();
   useEffect(() => {
     getMyAppointments();
-  }, []); 
+  }, []);
 
   const showSymptom = (symptom: string) => {
     dispatch({ type: "OPEN_MODAL", payload: symptom });
@@ -24,7 +24,7 @@ const Appointments = () => {
     dispatch({ type: "CLOSE_MODAL" });
   };
 
-  const openNoteModal = (id:string) => {
+  const openNoteModal = (id: string) => {
     dispatch({ type: "OPEN_NOTE_MODAL", payload: id });
   };
 
@@ -37,18 +37,17 @@ const Appointments = () => {
         </IconButton>
       </Paper>
       <AppointmentsTable
-        appointments={state.myAppointments} 
+        appointments={state.myAppointments}
         userType={user.userType}
         showSymptom={showSymptom}
         openNoteModal={openNoteModal}
-        handleStatusChange={(id, newStatus) => {
-        }}
+        handleStatusChange={handleStatusChange}
       />
 
-      <CustomModal 
-        open={modalState.open} 
-        handleClose={handleClose} 
-        selectedSymptom={modalState.symptom}  
+      <CustomModal
+        open={modalState.open}
+        handleClose={handleClose}
+        selectedSymptom={modalState.symptom}
         mode={modalState.mode}
         appointmentId={modalState.appointId}
       />
