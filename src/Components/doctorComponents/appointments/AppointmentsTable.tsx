@@ -4,13 +4,13 @@ import { Appointment, Status } from '../../../types/@types';
 import { button, table, tableContainer } from './appointmentsTable.style';
 
 interface IProps {
-  appointments: Appointment[];
+  updatedAppointments: any;
   showSymptom: (symptom: string) => void;
   openNoteModal: () => void;
   handleStatusChange: (id: number, newStatus: Status) => void;
 }
 
-const AppointmentsTable: React.FC<IProps> = ({ appointments, showSymptom, openNoteModal, handleStatusChange }) => {
+const AppointmentsTable: React.FC<IProps> = ({ updatedAppointments, showSymptom, openNoteModal, handleStatusChange }) => {
   return (
     <TableContainer component={Paper} sx={tableContainer}>
       <Table sx={table}>
@@ -26,8 +26,8 @@ const AppointmentsTable: React.FC<IProps> = ({ appointments, showSymptom, openNo
           </TableRow>
         </TableHead>
         <TableBody>
-          {appointments.length > 0 ? (
-            appointments.map((appointment) => (
+          {updatedAppointments?.length > 0 ? (
+            updatedAppointments.map((appointment) => (
               <TableRow key={appointment.id}>
                 <TableCell>{appointment.patientName}</TableCell>
                 <TableCell align="right">{appointment.age}</TableCell>
@@ -65,7 +65,7 @@ const AppointmentsTable: React.FC<IProps> = ({ appointments, showSymptom, openNo
           ) : (
             <TableRow>
               <TableCell colSpan={7} align="center">
-                No appointments available
+                No updatedAppointments available
               </TableCell>
             </TableRow>
           )
