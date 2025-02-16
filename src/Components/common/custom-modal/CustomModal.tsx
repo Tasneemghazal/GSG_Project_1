@@ -8,6 +8,7 @@ interface IProps {
   handleClose: () => void;
   selectedSymptom: string;
   mode: string;
+  note: string;
   appointmentId: string;
 }
 
@@ -16,6 +17,7 @@ const CustomModal = ({
   handleClose,
   selectedSymptom,
   mode,
+  note,
   appointmentId,
 }: IProps) => {
   return (
@@ -25,7 +27,12 @@ const CustomModal = ({
           <Typography sx={symptomTitle}>Patient Symptoms:</Typography>
           <Typography sx={symptom}>{selectedSymptom}</Typography>
         </Box>
-      ) : (
+      ) : mode === ModalMode.NOTE ? (
+        <Box sx={modal}>
+          <Typography sx={symptomTitle}>NOTE:</Typography>
+          <Typography sx={symptom}>{note}</Typography>
+        </Box>
+      ):(
         <AddNote handleClose={handleClose} appointmentId={appointmentId}/>
       )}
     </Modal>

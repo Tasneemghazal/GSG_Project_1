@@ -7,13 +7,14 @@ interface IProps {
   filteredAppointments: Appointment[];
   userType: UserType;
   showSymptom: (symptom: string) => void;
+  showNote: (note: string) => void;
   openNoteModal: (id:string) => void;
   handleStatusChange: (id: string, newStatus: Status) => void;
   filterAppointments: (status: Status) => void
 
 }
 
-const AppointmentsTable: React.FC<IProps> = ({filteredAppointments,userType, showSymptom, openNoteModal, handleStatusChange, filterAppointments }) => {
+const AppointmentsTable: React.FC<IProps> = ({filteredAppointments,userType, showSymptom,showNote, openNoteModal, handleStatusChange, filterAppointments }) => {
   const [params, setParams]=useSearchParams();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -71,6 +72,7 @@ const AppointmentsTable: React.FC<IProps> = ({filteredAppointments,userType, sho
             <TableCell align="right">Gender</TableCell>
             <TableCell align="right">Contact</TableCell>
             <TableCell align="right">Symptoms</TableCell>
+            {userType === UserType.Patient&&(<TableCell align="right">Note</TableCell>)}
             {userType === UserType.Doctor && <TableCell align="center">Action</TableCell>}
             <TableCell align="center">Status</TableCell>
           </TableRow>
@@ -90,6 +92,11 @@ const AppointmentsTable: React.FC<IProps> = ({filteredAppointments,userType, sho
                     Show
                   </Button>
                 </TableCell>
+                {userType === UserType.Patient&&(<TableCell align="right">
+                  <Button variant="outlined" sx={button} onClick={() => showNote(appointment.note||"No notes added")}>
+                    Show
+                  </Button>
+                </TableCell>)}
                 
                 {userType === UserType.Doctor && (
                   <TableCell align="right">

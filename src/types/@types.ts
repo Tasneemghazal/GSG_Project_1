@@ -7,6 +7,7 @@ export enum Status {
 export enum ModalMode {
   SYMPTOM = "SYMPTOM",
   NOTE = "NOTE",
+  ADD_NOTE = "ADD_NOTE"
 }
 export interface Appointment {
   id: string;

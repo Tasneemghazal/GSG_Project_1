@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import { Paper, Box, InputBase} from "@mui/material";
 import { SearchOutlined } from "@mui/icons-material";
-import AppointmentsTable from "../../Components/common/appointments-table/AppointmentsTable";
+import AppointmentsTable from "../../components/common/appointments-table/AppointmentsTable";
 import { inputSearch } from "./appointments.style"
 import useModal from "../../hooks/useModal";
-import CustomModal from "../../Components/common/custom-modal/CustomModal";
+import CustomModal from "../../components/common/custom-modal/CustomModal";
 import useAppointmentContext from "../../hooks/useAppointment";
 import { AuthContext } from "../../providers/AuthProvider";
 import { UserType } from "../../types/@types";
@@ -28,6 +28,9 @@ const Appointments = () => {
   const openNoteModal = (id: string) => {
     dispatch({ type: "OPEN_NOTE_MODAL", payload: id });
   };
+  const showNote = (note: string) => {
+    dispatch({ type: "SHOW_NOTE", payload: note });
+  };
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     searchByPatientName(event.target.value);
   };
@@ -43,6 +46,7 @@ const Appointments = () => {
         filterAppointments={filterAppointments}
         userType={user.userType}
         showSymptom={showSymptom}
+        showNote={showNote}
         openNoteModal={openNoteModal}
         handleStatusChange={handleStatusChange}
       />
@@ -53,6 +57,7 @@ const Appointments = () => {
         selectedSymptom={modalState.symptom}
         mode={modalState.mode}
         appointmentId={modalState.appointId}
+        note={modalState.note}
       />
     </Box>
   );
