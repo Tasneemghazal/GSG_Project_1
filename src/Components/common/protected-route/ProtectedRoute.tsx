@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
-import { UserType } from "../../types/@types";
+import { AuthContext } from "../../../providers/AuthProvider";
+import { UserType } from "../../../types/@types";
 import { Box } from "@mui/system";
 import { container } from "./ProtectedRoute.style";
 interface IProps {
@@ -12,13 +12,13 @@ const ProtectedRoute = (props: IProps) => {
   if (!user) {
     return (
       <Box sx={container}>
-        <img src="/401-Unauthorized.gif" alt="401-Unauthorized" />
+        <img src="/common-images/401-Unauthorized.gif" alt="401-Unauthorized" />
       </Box>
     );
   } else if (user.userType !== props.userType) {
     return (
       <Box sx={container}>
-        <img src="/403-Forbidden.gif" alt="403-Forbidden" />
+        <img src="/common-images/403-Forbidden.gif" alt="403-Forbidden" />
       </Box>
     );
   }

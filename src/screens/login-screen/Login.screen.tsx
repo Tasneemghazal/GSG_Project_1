@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { LoginFormErrors, validateLoginForm } from "../../utils/validation";
 import { UserType } from "../../types/@types";
-import { loginFormErrorInitialValues, loginFormInitialValues } from "../../constants/formInitialValues";
+import { loginFormErrorInitialValues, loginFormInitialValues } from "../../constants/initialValues";
 
 const Login = () => {
   const navigate = useNavigate();

@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import { Paper, Box, InputBase} from "@mui/material";
 import { SearchOutlined } from "@mui/icons-material";
-import AppointmentsTable from "../../Components/doctorComponents/appointments/AppointmentsTable";
-import { inputSearch } from "./doctor.style";
+import AppointmentsTable from "../../Components/common/appointments-table/AppointmentsTable";
+import { inputSearch } from "./appointments.style"
 import useModal from "../../hooks/useModal";
-import CustomModal from "../../Components/custom-modal/CustomModal";
+import CustomModal from "../../Components/common/custom-modal/CustomModal";
 import useAppointmentContext from "../../hooks/useAppointment";
 import { AuthContext } from "../../providers/AuthProvider";
 import { UserType } from "../../types/@types";

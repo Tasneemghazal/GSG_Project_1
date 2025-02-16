@@ -9,8 +9,8 @@ import { Appointment, Status } from "../types/@types";
 import appointmentReducer, {
   AppointmentState,
 } from "../state/appointmentReducer";
-import useLocalStorage from "../hooks/local-storage";
-import { appointmentInitialData } from "../constants/formInitialValues";
+import useLocalStorage from "../hooks/useLocalStorage";
+import { appointmentInitialData } from "../constants/initialValues";
 import { AuthContext } from "./AuthProvider";
 
 interface AppointmentContextProps {

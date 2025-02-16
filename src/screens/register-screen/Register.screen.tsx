@@ -3,7 +3,7 @@ import "./Register.css";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { RegisterFormErrors, validateRegisterForm } from "../../utils/validation";
-import { RegisterInitialData } from "../../constants/formInitialValues";
+import { RegisterInitialData } from "../../constants/initialValues";
 
 const Register = () => {
   const navigate = useNavigate();

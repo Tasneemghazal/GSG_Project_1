@@ -2,7 +2,7 @@ export enum Status {
   Pending = "Pending",
   Confirmed = "Confirmed",
   Completed = "Completed",
-  All="all"
+  All = "all",
 }
 export enum ModalMode {
   SYMPTOM = "SYMPTOM",
@@ -23,27 +23,12 @@ export interface Appointment {
   status: Status;
   note?: string;
 }
-// export interface Appointment {
-//   id:number;
-//   patientName: string;
-//   age: number;
-//   doctorId: number;
-//   doctorName: string;
-//   contact: string;
-//   gender: string;
-//   date: string;
-//   time: string;
-//   symptoms: string;
-//   status: Status;
-//   note?: string;
-
-// }
 export interface MakeAppointmentForm {
-  name: string,
-  email: string,
-  phone: string,
-  Subject: string,
-  message: string
+  name: string;
+  email: string;
+  phone: string;
+  Subject: string;
+  message: string;
 }
 
 export enum UserType {
@@ -60,40 +45,5 @@ export interface User extends LoggedUser {
   id: string;
   name: string;
   phone: string;
-  userType: UserType
+  userType: UserType;
 }
-
-
-// this will be deleted 
-// src/data/appointmentsData.ts
-
-export const initialAppointments: Appointment[] = [
-  {
-    id: "1",
-    patientId: "12",
-    patientName: "John Doe",
-    doctorName: "John Doe",
-    doctorId: "1",
-    age: 29,
-    date: "",
-    time: "",
-    gender: "Male",
-    contact: "123-456-7890",
-    symptoms: "Fever, Cough",
-    status: Status.Pending,
-  },
-  {
-    id: "2",
-    patientId: "13",
-    patientName: "John Doe",
-    doctorName: "John Doe",
-    doctorId: "1",
-    age: 29,
-    date: "",
-    time: "",
-    gender: "Male",
-    contact: "123-456-7890",
-    symptoms: "Fever, Cough",
-    status: Status.Pending,
-  },
-];

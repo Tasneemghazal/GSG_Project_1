@@ -1,7 +1,7 @@
 import React, { createContext} from "react";
 import { LoggedUser, User} from "../types/@types"
-import useLocalStorage from "../hooks/local-storage";
-import { RegisterInitialData } from "../constants/formInitialValues";
+import useLocalStorage from "../hooks/useLocalStorage";
+import { RegisterInitialData } from "../constants/initialValues";
 
 export interface IStateContext {
     user: User;
