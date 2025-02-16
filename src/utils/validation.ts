@@ -10,8 +10,6 @@ export interface RegisterFormErrors extends LoginFormErrors {
     name?: string;
 }
 
-
-
 export const validateLoginForm = (data: LoggedUser): LoginFormErrors => {
   const errors: LoginFormErrors = {};
 

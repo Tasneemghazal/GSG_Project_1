@@ -4,9 +4,9 @@ export interface AppointmentState {
   appointment: Appointment;
   appointments: Appointment[];
   myAppointments: Appointment[];
-  pending:number;
-  confirmed:number;
-  totalAppointmentsToday:number;
+  pending: number;
+  confirmed: number;
+  totalAppointmentsToday: number;
   appointmentsPerDay: Record<string, number>;
   filteredAppointments: Appointment[];
 }
@@ -15,7 +15,10 @@ type Action =
   | { type: "ADD_APPOINTMENT"; payload: Appointment }
   | { type: "CLEAR_APPOINTMENTS" }
   | { type: "SET_APPOINTMENT"; payload: Appointment }
-  | { type: "GET_APPOINTMENTS"; payload: { appointments: Appointment[]; user: User } }
+  | {
+      type: "GET_APPOINTMENTS";
+      payload: { appointments: Appointment[]; user: User };
+    }
   | { type: "ADD_NOTE"; payload: { note: string; id: string } }
   | { type: "FILTER"; payload: { status: Status } }
   | { type: "UPDATE_STATUS"; payload: { id: string; newStatus: Status } }
@@ -59,65 +62,81 @@ const appointmentReducer = (
         filteredAppointments: sortedAppointments,
       };
     }
-    case 'COUNT_STATISTIC_DATA':{
-      const today = new Date().toISOString().split('T')[0];
-        return {
-          ...state,
-          pending: action.payload.filter((appoint) =>appoint.status===Status.Pending).length,
-          confirmed: action.payload.filter((appoint)=>appoint.status === Status.Confirmed).length,
-          totalAppointmentsToday: action.payload.filter((appoint)=>appoint.date===today).length,
-        }
+    case "COUNT_STATISTIC_DATA": {
+      const today = new Date().toISOString().split("T")[0];
+      return {
+        ...state,
+        pending: action.payload.filter(
+          (appoint) => appoint.status === Status.Pending
+        ).length,
+        confirmed: action.payload.filter(
+          (appoint) => appoint.status === Status.Confirmed
+        ).length,
+        totalAppointmentsToday: action.payload.filter(
+          (appoint) => appoint.date === today
+        ).length,
+      };
     }
-    case 'APPOINTMENTS_PER_DAY':{
+    case "APPOINTMENTS_PER_DAY": {
       const appointmentsByDate: Record<string, number> = {};
-      
-        action.payload.forEach((appointment) => {
-          appointmentsByDate[appointment.date] = (appointmentsByDate[appointment.date] || 0) + 1;
-        });
-      
-        return {
-          ...state,
-          appointmentsPerDay: appointmentsByDate,
-        };
+
+      action.payload.forEach((appointment) => {
+        appointmentsByDate[appointment.date] =
+          (appointmentsByDate[appointment.date] || 0) + 1;
+      });
+
+      return {
+        ...state,
+        appointmentsPerDay: appointmentsByDate,
+      };
     }
-    case 'FILTER': {
+    case "FILTER": {
       const { status } = action.payload;
       return {
         ...state,
         filteredAppointments:
-          status === Status.All ? state.filteredAppointments : state.filteredAppointments.filter((appoint) => appoint.status === status),
-      }
+          status === Status.All
+            ? state.filteredAppointments
+            : state.filteredAppointments.filter(
+                (appoint) => appoint.status === status
+              ),
+      };
     }
-    
-    case 'SEARCH': 
-      return{
-        ...state,
-        filteredAppointments: state.myAppointments.filter((appoint) =>
-          appoint.patientName.toLowerCase().includes(action.payload.toLowerCase())
-        ),
-      }
-    
-    case "ADD_NOTE":  {
-      const {  note, id } =  action.payload;
+
+    case "SEARCH":
       return {
         ...state,
-        appointments: state.appointments.map(appoint => appoint.id === id ? { ...appoint, note } : appoint)
-      }
+        filteredAppointments: state.myAppointments.filter((appoint) =>
+          appoint.patientName
+            .toLowerCase()
+            .includes(action.payload.toLowerCase())
+        ),
+      };
+
+    case "ADD_NOTE": {
+      const { note, id } = action.payload;
+      return {
+        ...state,
+        appointments: state.appointments.map((appoint) =>
+          appoint.id === id ? { ...appoint, note } : appoint
+        ),
+      };
     }
-    case "UPDATE_STATUS":{
+    case "UPDATE_STATUS": {
       const { id, newStatus } = action.payload;
-      const updatedAllAppointments =state.appointments.map((appoint) =>
+      const updatedAllAppointments = state.appointments.map((appoint) =>
         appoint.id === id ? { ...appoint, status: newStatus } : appoint
-      )
-      const updatedMyAppointments =state.myAppointments.map((appoint) =>
+      );
+      const updatedMyAppointments = state.myAppointments.map((appoint) =>
         appoint.id === id ? { ...appoint, status: newStatus } : appoint
-      )
+      );
       return {
         ...state,
         appointments: updatedAllAppointments,
         myAppointments: updatedMyAppointments,
-        filteredAppointments: updatedMyAppointments
-      }}
+        filteredAppointments: updatedMyAppointments,
+      };
+    }
     default:
       return state;
   }

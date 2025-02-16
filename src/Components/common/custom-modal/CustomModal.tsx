@@ -1,7 +1,7 @@
 import { Box, Modal,Typography } from "@mui/material";
-import { ModalMode } from "../../types/@types";
+import { ModalMode } from "../../../types/@types";
 import { modal, symptom, symptomTitle } from "./custom-modal.style";
-import AddNote from "../doctorComponents/add-note/AddNote";
+import AddNote from "../../doctorComponents/add-note/AddNote";
 
 interface IProps {
   open: boolean;

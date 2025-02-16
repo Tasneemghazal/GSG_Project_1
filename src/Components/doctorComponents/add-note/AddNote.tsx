@@ -1,5 +1,5 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { modal } from "../../custom-modal/custom-modal.style";
+import { modal } from "../../common/custom-modal/custom-modal.style";
 import { Title } from "./AddNote.style";
 import { forwardRef, useState } from "react";
 import useAppointmentContext from "../../../hooks/useAppointment";

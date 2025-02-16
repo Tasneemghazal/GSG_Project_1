@@ -20,10 +20,10 @@ export const RegisterInitialData: User = {
 };
 
 export const appointmentInitialData: Appointment = {
-  id: 0,
+  id: "0",
   patientId: "",
   patientName: "",
-  doctorId: 0,
+  doctorId: "0",
   doctorName: "",
   gender: "",
   date: "",
@@ -33,14 +33,3 @@ export const appointmentInitialData: Appointment = {
   symptoms: "",
   status: Status.Pending,
 };
-
-// will be deleted
-export const doctors = [
-  { id: 1, name: "Dr. Calvin Carlo" },
-  { id: 2, name: "Dr. Cristino Murphy" },
-  { id: 3, name: "Dr. Alia Reddy" },
-  { id: 4, name: "Dr. Toni Kovar" },
-  { id: 5, name: "Dr. Jessica McFarlane" },
-  { id: 6, name: "Dr. Bertha Magers" },
-  { id: 7, name: "Dr. Elsie Sherman" },
-];

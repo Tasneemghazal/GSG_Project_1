@@ -1,6 +1,6 @@
 import { BarChart } from "@mui/x-charts/BarChart";
-import useAppointmentContext from "../../hooks/useAppointment";
 import { useEffect } from "react";
+import useAppointmentContext from "../../../hooks/useAppointment";
 
 const CustomBarChart = () => {
   const { state, getAppointmentsPerDay } = useAppointmentContext();

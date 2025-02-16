@@ -2,10 +2,10 @@ import Grid from "@mui/material/Grid2";
 import { FaUserClock, FaUserInjured } from "react-icons/fa";
 import { FaCalendarDays } from "react-icons/fa6";
 import { Paper } from "@mui/material";
-import { chartCard } from "./doctor-screen.style";
-import StatisticCard from "../../Components/statistic-card/StatisticCard";
-import CustomPieChart from "../../Components/charts/CustomPieChart";
-import CustomBarChart from "../../Components/charts/CustomBarChart";
+import { chartCard } from "./doctor-dashboard.style";
+import StatisticCard from "../../Components/doctorComponents/statistic-card/StatisticCard";
+import CustomPieChart from "../../Components/doctorComponents/charts/CustomPieChart";
+import CustomBarChart from "../../Components/doctorComponents/charts/CustomBarChart";
 import useAppointmentContext from "../../hooks/useAppointment";
 import { useEffect } from "react";
 
