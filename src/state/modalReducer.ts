@@ -4,6 +4,7 @@ export interface IState {
   open: boolean;
   mode: ModalMode;
   symptom: string;
+  note: string;
   appointId: string;
 }
 
@@ -11,7 +12,7 @@ export type Action =
   | { type: "OPEN_MODAL"; payload: string }
   | { type: "CLOSE_MODAL" }
   | { type: "OPEN_NOTE_MODAL"; payload: string }
-  | { type: "OPEN_BOOKING_MODAL" }
+  | { type: "SHOW_NOTE"; payload: string }
   | { type: "ADD_NOTE"; payload: string };
 
 const reducer = (state: IState, action: Action): IState => {
@@ -31,8 +32,16 @@ const reducer = (state: IState, action: Action): IState => {
       return {
         ...state,
         open: true,
-        mode: ModalMode.NOTE,
+        mode: ModalMode.ADD_NOTE,
         appointId: action.payload,
+      };
+    }
+    case "SHOW_NOTE":{
+      return {
+        ...state,
+        open: true,
+        note: action.payload,
+        mode: ModalMode.NOTE,
       };
     }
     default: {

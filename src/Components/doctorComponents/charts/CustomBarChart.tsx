@@ -18,6 +18,13 @@ const CustomBarChart = () => {
           label: "Appointments",
         },
       ]}
+      yAxis={[
+        {
+          min: 0,
+          max:5, // Ensure it starts from 0
+          tickMinStep: 1, // Force whole number steps
+        },
+      ]}
       series={[{ data: data }]}
       width={500}
       height={300}

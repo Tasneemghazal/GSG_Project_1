@@ -14,10 +14,11 @@ import {
 } from '@mui/material';
 import { button, form, group } from './booking.style';
 import useAppointmentContext from '../../hooks/useAppointment';
-import AlertMessage from '../../Components/common/snackbar/AlertMessage';
+import AlertMessage from '../../components/common/snackbar/AlertMessage';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { User } from '../../types/@types';
 import { AuthContext } from '../../providers/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme({
   components: {
@@ -31,6 +32,7 @@ const theme = createTheme({
 
 const Booking = () => {
   const { state, addAppointment, setAppointment } = useAppointmentContext();
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const [storedDoctors] = useLocalStorage("doctors", []);
   const doctors: User[] = storedDoctors;
@@ -96,6 +98,7 @@ const Booking = () => {
       patientId: user.id,
       id: '',
     });
+    navigate('/patient/appointments')
   };
 
   return (
