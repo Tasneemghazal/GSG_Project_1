@@ -23,6 +23,7 @@ interface AppointmentContextProps {
   getAppointmentsPerDay: () => void;
   handleStatusChange: (id: string, newStatus: Status) => void;
   filterAppointments: (status: Status) => void;
+  searchByPatientName: (patientName: string) => void;
 }
 
 export const AppointmentContext = createContext<
@@ -75,6 +76,9 @@ export const AppointmentProvider: React.FC<{ children: ReactNode }> = ({
   const filterAppointments = (status: Status) => {
     dispatch({ type: "FILTER", payload: { status } });
   };
+  const searchByPatientName = (searchValue: string) => {
+    dispatch({ type: "SEARCH", payload: searchValue });
+  };
 
   useEffect(() => {
     setStoredAppointments(state.appointments);
@@ -92,6 +96,7 @@ export const AppointmentProvider: React.FC<{ children: ReactNode }> = ({
         getAppointmentsPerDay,
         handleStatusChange,
         filterAppointments,
+        searchByPatientName
       }}
     >
       {children}

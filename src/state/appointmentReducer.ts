@@ -20,7 +20,8 @@ type Action =
   | { type: "FILTER"; payload: { status: Status } }
   | { type: "UPDATE_STATUS"; payload: { id: string; newStatus: Status } }
   | { type: "COUNT_STATISTIC_DATA"; payload: Appointment[] }
-  | { type: "APPOINTMENTS_PER_DAY"; payload: Appointment[] };
+  | { type: "APPOINTMENTS_PER_DAY"; payload: Appointment[] }
+  | { type: "SEARCH"; payload: string };
 
 const appointmentReducer = (
   state: AppointmentState,
@@ -84,9 +85,17 @@ const appointmentReducer = (
       return {
         ...state,
         filteredAppointments:
-          status === Status.All ? state.myAppointments : state.myAppointments.filter((appoint) => appoint.status === status),
-      };
+          status === Status.All ? state.filteredAppointments : state.filteredAppointments.filter((appoint) => appoint.status === status),
+      }
     }
+    
+    case 'SEARCH': 
+      return{
+        ...state,
+        filteredAppointments: state.myAppointments.filter((appoint) =>
+          appoint.patientName.toLowerCase().includes(action.payload.toLowerCase())
+        ),
+      }
     
     case "ADD_NOTE":  {
       const {  note, id } =  action.payload;
