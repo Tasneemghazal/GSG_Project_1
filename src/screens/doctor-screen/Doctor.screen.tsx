@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import DoctorSidebar from "../../Components/doctorComponents/doctor-sidebar/DoctorSidebar";
+import DoctorSidebar from "../../component/doctorComponents/doctor-sidebar/DoctorSidebar";
 import { Outlet, useLocation } from "react-router-dom";
 import { container, content } from "./doctor.style";
 

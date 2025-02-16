@@ -2,10 +2,10 @@ import Grid from "@mui/material/Grid2";
 import { CiTempHigh } from "react-icons/ci";
 import { FaHeart, FaSyringe, FaUserEdit } from "react-icons/fa";
 import { MdAddBox } from "react-icons/md";
-import Calender from "../../Components/PatiantComponent/Calender/Calender";
-import HealthRecordComponent from "../../Components/PatiantComponent/HealthRecord/HealthReacord";
-import UppCommingAppointments from "../../Components/PatiantComponent/UppCommingAppointment/UppComingAppointment";
-import Report from "../../Components/PatiantComponent/Report/Report";
+import Calender from "../../component/PatiantComponent/Calender/Calender";
+import HealthRecordComponent from "../../component/PatiantComponent/HealthRecord/HealthReacord";
+import UppCommingAppointments from "../../component/PatiantComponent/UppCommingAppointment/UppComingAppointment";
+import Report from "../../component/PatiantComponent/Report/Report";
 
 const healthData = [
   { icon: <FaHeart />, label: "Heart Rate", value: "140 BPM" },

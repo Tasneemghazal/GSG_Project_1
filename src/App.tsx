@@ -14,7 +14,7 @@ import Booking from "./screens/book-appointment/Booking.screen";
 import DoctorDashboard from "./screens/doctor-dashboard/DoctorDashboard";
 import Dashboard from "./screens/patient-dashboard/PatientDashboard";
 import { AppointmentProvider } from "./providers/AppointmentProvider";
-import ProtectedRoute from "./Components/common/protected-route/ProtectedRoute";
+import ProtectedRoute from "./component/common/protected-route/ProtectedRoute";
 import { UserType } from "./types/@types";
 const theme = createTheme();
 

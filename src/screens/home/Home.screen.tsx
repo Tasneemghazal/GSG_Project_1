@@ -1,9 +1,9 @@
-import Navbar from "../../components/homeComponents/Nav/Navbar";
-import Slider from "../../components/homeComponents/Slider/Slider";
-import About from "../../components/homeComponents/About/About";
-import BeastServices from "../../components/homeComponents/beast_service/BeastServices";
-import Make_appointment from "../../components/homeComponents/make_appointment/Make_Appointment";
-import Footer from "../../components/homeComponents/Footer/Footer";
+import Navbar from "../../component/homeComponents/Nav/Navbar";
+import Slider from "../../component/homeComponents/Slider/Slider";
+import About from "../../component/homeComponents/About/About";
+import BeastServices from "../../component/homeComponents/beast_service/BeastServices";
+import Make_appointment from "../../component/homeComponents/make_appointment/Make_Appointment";
+import Footer from "../../component/homeComponents/Footer/Footer";
 
 const Home = () => {
   return (

@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import { button, form, group } from './booking.style';
 import useAppointmentContext from '../../hooks/useAppointment';
-import AlertMessage from '../../components/common/snackbar/AlertMessage';
+import AlertMessage from '../../component/common/snackbar/AlertMessage';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { User } from '../../types/@types';
 import { AuthContext } from '../../providers/AuthProvider';

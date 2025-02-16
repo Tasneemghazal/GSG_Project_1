@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Box } from '@mui/material';
-import { PatientSidebar } from '../../components/patiantComponent/PaitientSidebar/SidebarPaitiant';
+import { PatientSidebar } from '../../component/patiantComponent/PaitientSidebar/SidebarPaitiant';
 import { container, content } from './patient-screen.styl';
 
 const Patient = () => {
