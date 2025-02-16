@@ -1,7 +1,8 @@
-import { MagnifyingGlass, List, Cursor } from "@phosphor-icons/react";
+import { MagnifyingGlass, List } from "@phosphor-icons/react";
 import logo from "../../../assets/Home_imgs/navbar/Artboard.png";
 import "./navbar.css";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -90,7 +91,7 @@ const Navbar = () => {
               </a>
             </div>
             <div className="book">
-              <a>Book Appointment</a>
+                <Link to="/patient/booking" >Book Appointment</Link>
             </div>
             <div
               className="menu"

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Stack, Select, MenuItem, SelectChangeEvent } from '@mui/material';
+import React, { useEffect, useState} from 'react';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Stack, Select, MenuItem, SelectChangeEvent, TablePagination } from '@mui/material';
 import { Appointment, Status, UserType } from '../../../types/@types';
 import { button, table, tableContainer } from './appointmentsTable.style';
 import { useSearchParams } from 'react-router-dom';
@@ -15,6 +15,27 @@ interface IProps {
 
 const AppointmentsTable: React.FC<IProps> = ({filteredAppointments,userType, showSymptom, openNoteModal, handleStatusChange, filterAppointments }) => {
   const [params, setParams]=useSearchParams();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number,
+  ) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+  const paginatedData = filteredAppointments.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
+
   useEffect(() => {
     const status = params.get('status') as Status || Status.All;
     filterAppointments(status);
@@ -55,8 +76,8 @@ const AppointmentsTable: React.FC<IProps> = ({filteredAppointments,userType, sho
           </TableRow>
         </TableHead>
         <TableBody>
-          {filteredAppointments.length > 0 ? (
-            filteredAppointments.map((appointment) => (
+          {paginatedData?.length > 0 ? (
+            paginatedData.map((appointment) => (
               <TableRow key={appointment.id}>
                 <TableCell>{appointment.patientName}</TableCell>
                 <TableCell align="right">{appointment.age}</TableCell>
@@ -120,6 +141,15 @@ const AppointmentsTable: React.FC<IProps> = ({filteredAppointments,userType, sho
           )}
         </TableBody>
       </Table>
+      <TablePagination
+        rowsPerPageOptions={[5, 10]}
+        component="div"
+        count={filteredAppointments.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </TableContainer>
   );
 };

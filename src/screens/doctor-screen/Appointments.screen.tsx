@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Paper, Box, InputBase, IconButton } from "@mui/material";
+import { Paper, Box, InputBase} from "@mui/material";
 import { SearchOutlined } from "@mui/icons-material";
 import AppointmentsTable from "../../Components/doctorComponents/appointments/AppointmentsTable";
 import { inputSearch } from "./doctor.style";
@@ -7,9 +7,10 @@ import useModal from "../../hooks/useModal";
 import CustomModal from "../../Components/custom-modal/CustomModal";
 import useAppointmentContext from "../../hooks/useAppointment";
 import { AuthContext } from "../../providers/AuthProvider";
+import { UserType } from "../../types/@types";
 
 const Appointments = () => {
-  const { state, getMyAppointments, handleStatusChange , filterAppointments} = useAppointmentContext();
+  const { state, getMyAppointments, handleStatusChange , filterAppointments, searchByPatientName} = useAppointmentContext();
   const { user } = useContext(AuthContext);
   const { state: modalState, dispatch } = useModal();
   useEffect(() => {
@@ -27,15 +28,16 @@ const Appointments = () => {
   const openNoteModal = (id: string) => {
     dispatch({ type: "OPEN_NOTE_MODAL", payload: id });
   };
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    searchByPatientName(event.target.value);
+  };
 
   return (
     <Box>
-      <Paper sx={inputSearch}>
-        <InputBase placeholder="Search by Patient Name" />
-        <IconButton>
+      {user.userType===UserType.Doctor&&<Paper sx={inputSearch}>
+        <InputBase placeholder="Search by Patient Name" onChange={handleSearchChange}/>
           <SearchOutlined />
-        </IconButton>
-      </Paper>
+      </Paper>}
       <AppointmentsTable
         filteredAppointments={state.filteredAppointments} 
         filterAppointments={filterAppointments}
